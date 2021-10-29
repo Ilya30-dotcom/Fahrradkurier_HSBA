@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div layout:fragment="content">
+
+    <div class="my-4">
+        <div th:replace="layout/menu :: menu"></div>
+
+        <h1>WG-Kassenbuch / Nutzer</h1>
+    </div>
+
+    <ul class="list-unstyled">
+        <li th:each="user : ${users}" th:text="${user.userName}"></li>
+    </ul>
+
+    <hr/>
+</div>
+</body>
+</html>
