@@ -33,7 +33,7 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	//The only dependency that wasn't imported by spring initializer but is present in the other project
-	//implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
 
 test {
