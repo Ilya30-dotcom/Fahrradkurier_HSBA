@@ -18,11 +18,11 @@ public class UserService {
     }
 
     public List<User> findCouriers() {
-        return userRepository.findByRole(UserRoles.COURIER);
+        return userRepository.findByRole(UserRoleEnum.COURIER);
     }
 
     public List<User> findCustomers() {
-        return userRepository.findByRole(UserRoles.CUSTOMER);
+        return userRepository.findByRole(UserRoleEnum.CUSTOMER);
     }
 
     public User save(User user) {

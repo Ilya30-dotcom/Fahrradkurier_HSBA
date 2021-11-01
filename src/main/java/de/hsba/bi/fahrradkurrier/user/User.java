@@ -1,17 +1,14 @@
 package de.hsba.bi.fahrradkurrier.user;
 
+import lombok.*;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -19,35 +16,39 @@ import lombok.Setter;
 @NoArgsConstructor
 public class User implements Comparable<User> {
 
+    @Setter(AccessLevel.NONE)
+    @Id
+    @GeneratedValue
+    private Long id;
+    @Basic(optional = false)
+    private String userName;
+    @Basic(optional = false)
+    private String firstName;
+    @Basic(optional = false)
+    private String lastName;
+    @Basic(optional = false)
+    private LocalDate birthday;
+    @Basic(optional = false)
+    private String password;
+    @Basic(optional = false)
+    private UserRoleEnum role;
+
+    @Builder
+    public User(String userName, String firstName, String lastName, LocalDate birthday, String password, UserRoleEnum role) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.password = password;
+        this.role = role;
+    }
+
     public static String getCurrentUsername() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             return ((UserDetails) principal).getUsername();
         }
         return null;
-    }
-
-    @Setter(AccessLevel.NONE)
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @Basic(optional = false)
-    private String userName;
-
-    @Basic(optional = false)
-    private String password;
-
-    private UserRoles role;
-
-    public User(String userName) {
-        this.userName = userName;
-    }
-
-    public User(String userName, String password, UserRoles role) {
-        this.userName = userName;
-        this.password = password;
-        this.role = role;
     }
 
     @Override

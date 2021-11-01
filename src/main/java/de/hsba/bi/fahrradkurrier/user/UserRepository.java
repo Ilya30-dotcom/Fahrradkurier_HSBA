@@ -7,5 +7,5 @@ interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUserName(String name);
 
-    List<User> findByRole(UserRoles role);
+    List<User> findByRole(UserRoleEnum role);
 }

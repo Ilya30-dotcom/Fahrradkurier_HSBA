@@ -1,6 +1,6 @@
 package de.hsba.bi.fahrradkurrier.user;
 
-public enum UserRoles {
+public enum UserRoleEnum {
     COURIER,
     CUSTOMER
 }
