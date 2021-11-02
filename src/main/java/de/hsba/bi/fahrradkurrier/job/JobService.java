@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -11,7 +12,7 @@ import java.util.List;
 @Transactional
 public class JobService {
 
-    JobRepository jobRepository;
+    private final JobRepository jobRepository;
 
     public List<JobEntity> listAllJobsByStatusNew(Long userId) {
         return jobRepository.findAllByUserIdAndStatus(userId, JobStatusEnum.NEW);
@@ -26,6 +27,7 @@ public class JobService {
     }
 
     public void newJob(JobEntity job) {
+        job.setOrderDate(LocalDate.now());
         jobRepository.save(job);
     }
 
@@ -44,6 +46,8 @@ public class JobService {
                 newStatus = JobStatusEnum.DELIVERED;
                 break;
             case DELIVERED:
+                newStatus = JobStatusEnum.DELIVERED;
+                break;
             case CANCELLED:
                 newStatus = JobStatusEnum.CANCELLED;
                 break;
@@ -57,7 +61,7 @@ public class JobService {
         }
     }
 
-    void cancel(Long jobId) {
+    public void cancel(Long jobId) {
         jobRepository.updateStatus(jobId, JobStatusEnum.CANCELLED);
     }
 
