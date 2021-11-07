@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/index.html")
+                .logoutSuccessUrl("/?logout")
                 .permitAll();
     }
 
