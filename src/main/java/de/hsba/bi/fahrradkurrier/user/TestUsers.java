@@ -26,7 +26,7 @@ public class TestUsers {
                 .firstName("Ilja")
                 .lastName("Test")
                 .birthday(LocalDate.now())
-                .password("start")
+                .password(passwordEncoder.encode("start"))
                 .role(UserRoleEnum.COURIER)
                 .build());
         userService.save(User.builder()
@@ -34,7 +34,7 @@ public class TestUsers {
                 .firstName("Arne")
                 .lastName("Test")
                 .birthday(LocalDate.now())
-                .password("start")
+                .password(passwordEncoder.encode("start"))
                 .role(UserRoleEnum.CUSTOMER)
                 .build());
     }
