@@ -15,7 +15,6 @@ public class LoginController {
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = auth.getPrincipal();
-        System.out.println("Trying to login");
-        return principal instanceof UserDetails ? "redirect:/" : "login";
+        return principal instanceof UserDetails ? "redirect:/jobs" : "login";
     }
 }
