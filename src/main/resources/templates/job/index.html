@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<div layout:fragment="content">
+    <div class="my-4">
+        <h1>Jobs</h1>
+    </div>
+
+    <table th:if="${userJobs != null}" class="table">
+        <tr>
+            <th>Id</th>
+            <th>Date ordered</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr th:each="job : ${userJobs}">
+            <td th:text="${job.id}"></td>
+            <td th:text="${job.orderDate}"></td>
+            <td th:text="${job.type}"></td>
+            <td th:text="${job.status}"></td>
+            <td><a th:href="${'/jobs/' + job.id}">Details</a></td>
+            <td><a th:href="${'/jobs/' + job.id + '/cancel'}">Stornieren</a></td>
+        </tr>
+    </table>
+
+
+    <div class="mb-4">
+        <a th:href="@{jobs/create}"> Create new Job </a>
+    </div>
+
+
+
+</div>
+</body>
+</html>
+
+
