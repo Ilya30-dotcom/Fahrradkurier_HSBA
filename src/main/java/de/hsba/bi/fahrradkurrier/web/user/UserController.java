@@ -9,7 +9,7 @@ import de.hsba.bi.fahrradkurrier.user.UserService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -17,7 +17,7 @@ public class UserController {
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("users", userService.findAll());
-        return "users/index";
+        model.addAttribute("allUser", userService.findAll());
+        return "user/index";
     }
 }

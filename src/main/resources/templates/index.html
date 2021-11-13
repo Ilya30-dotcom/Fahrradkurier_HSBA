@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<div layout:fragment="content">
+    <div th:if="${param.logout}" class="alert alert-success" id="logout-alert" role="alert">
+        <strong>Sie haben sich erfolgreich abgemeldet</strong>
+    </div>
+    <div class="my-4">
+        <h1>Landingpage</h1>
+    </div>
+
+    <div class="mb-4">
+        <a href="user/index.html" th:href="@{/user}"> User Overview Page</a>
+    </div>
+
+    <script>
+        // alert fade animation
+        $(function() {
+            let searchParams = new URLSearchParams(window.location.search)
+            if (searchParams.has("logout")) {
+                $("#logout-alert").fadeTo(2000, 500).slideUp(500, function() {
+                    $("#logout-alert").slideUp(500);
+                });
+            }
+        });
+    </script>
+</div>
+</body>
+</html>
+
+
