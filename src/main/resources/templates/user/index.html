@@ -6,10 +6,9 @@
 <div layout:fragment="content">
 
     <ul class="list-unstyled">
-        <li th:each="user : ${users}" th:text="${user.userName}"></li>
+        <li th:each="user : ${allUser}" th:text="${user.userName}"></li>
     </ul>
 
-    <hr/>
 </div>
 </body>
 </html>
