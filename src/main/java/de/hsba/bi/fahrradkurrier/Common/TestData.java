@@ -21,6 +21,7 @@ public class TestData {
     private final UserService userService;
     private final JobService jobService;
     private final PasswordEncoder passwordEncoder;
+    private final String PASSWORD = "start";
 
     @EventListener(ApplicationStartedEvent.class)
     public void createTestUsers() {
@@ -44,7 +45,7 @@ public class TestData {
                 .firstName("Ilja")
                 .lastName("Test")
                 .birthday(LocalDate.now())
-                .password("start")
+                .password(passwordEncoder.encode(PASSWORD))
                 .role(UserRoleEnum.COURIER)
                 .address(address1)
                 .build();
@@ -54,7 +55,7 @@ public class TestData {
                 .firstName("Arne")
                 .lastName("Test")
                 .birthday(LocalDate.now())
-                .password("start")
+                .password(passwordEncoder.encode(PASSWORD))
                 .role(UserRoleEnum.CUSTOMER)
                 .address(address2)
                 .build();
