@@ -1,13 +1,11 @@
 package de.hsba.bi.fahrradkurrier.user;
 
+import de.hsba.bi.fahrradkurrier.Common.AddressEntity;
 import lombok.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -31,16 +29,20 @@ public class User implements Comparable<User> {
     @Basic(optional = false)
     private String password;
     @Basic(optional = false)
+    @Enumerated(EnumType.STRING)
     private UserRoleEnum role;
+    @OneToOne(cascade = CascadeType.MERGE, optional = false)
+    private AddressEntity address;
 
     @Builder
-    public User(String userName, String firstName, String lastName, LocalDate birthday, String password, UserRoleEnum role) {
+    public User(String userName, String firstName, String lastName, LocalDate birthday, String password, UserRoleEnum role, AddressEntity address) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
         this.password = password;
         this.role = role;
+        this.address = address;
     }
 
     public static String getCurrentUsername() {

@@ -18,9 +18,6 @@ interface JobRepository extends JpaRepository<JobEntity, Long> {
     List<JobEntity> findAllByCustomerIdOrCourierId(Long customerId, Long courierId);
 
 
-    @Query("select j from JobEntity j where j.status = :status and j.courierId = :userId or j.customerId = :userId")
-    List<JobEntity> findAllByUserIdAndStatus(@Param(value = "userId") Long userId, @Param(value = "status") JobStatusEnum status);
-
     @Modifying
     @Query("update JobEntity j set j.status = :newStatus where j.id = :jobId")
     void updateStatus(@Param(value = "jobId") Long jobId, @Param(value = "newStatus") JobStatusEnum newStatus);

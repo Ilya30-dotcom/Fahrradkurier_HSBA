@@ -1,14 +1,10 @@
 package de.hsba.bi.fahrradkurrier.job;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import de.hsba.bi.fahrradkurrier.Common.AddressEntity;
+import de.hsba.bi.fahrradkurrier.user.User;
+import lombok.*;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -17,23 +13,45 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class JobEntity {
 
+    @Builder
+    public JobEntity(User courier, User customer, JobTypeEnum type, LocalDate orderDate, AddressEntity deliveryAddress, AddressEntity pickUpAddress) {
+        this.courier = courier;
+        this.status = JobStatusEnum.NEW;
+        this.customer = customer;
+        this.type = type;
+        this.orderDate = orderDate;
+        this.deliveryAddress = deliveryAddress;
+        this.pickUpAddress = pickUpAddress;
+    }
+
     @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue
     private Long id;
 
-    @Basic(optional = true)
-    private Long courierId;
+    @ManyToOne(optional = false)
+    private User courier;
 
     @Basic(optional = false)
-    private JobStatusEnum status = JobStatusEnum.NEW;
+    @Enumerated(EnumType.STRING)
+    private JobStatusEnum status;
+
+    @ManyToOne(optional = false)
+    private User customer;
 
     @Basic(optional = false)
-    private Long customerId;
-
-    @Basic(optional = false)
+    @Enumerated(EnumType.STRING)
     private JobTypeEnum type;
 
     @Basic(optional = false)
     private LocalDate orderDate;
+
+    @OneToOne(cascade = CascadeType.MERGE, optional = false)
+    private AddressEntity deliveryAddress;
+
+    //TODO: CHECK IF MERGE IS OK
+    @OneToOne(cascade = CascadeType.MERGE, optional = false)
+    private AddressEntity pickUpAddress;
 }
+
+//TODO: FETCH LAZY

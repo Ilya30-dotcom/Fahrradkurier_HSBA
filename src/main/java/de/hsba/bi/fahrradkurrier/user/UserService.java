@@ -1,5 +1,6 @@
 package de.hsba.bi.fahrradkurrier.user;
 
+import de.hsba.bi.fahrradkurrier.Common.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Service
 @Transactional
 public class UserService {
-
+    private final AddressRepository addressRepository;
     private final UserRepository userRepository;
 
     public List<User> findAll() {
@@ -26,6 +27,7 @@ public class UserService {
     }
 
     public User save(User user) {
+        addressRepository.save(user.getAddress());
         return userRepository.save(user);
     }
 

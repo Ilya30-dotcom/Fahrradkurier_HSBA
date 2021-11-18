@@ -1,6 +1,8 @@
 package de.hsba.bi.fahrradkurrier.job;
 
+import de.hsba.bi.fahrradkurrier.Exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.NotFound;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,9 +14,9 @@ public class JobController {
 
     private final JobService jobService;
 
-    @GetMapping(path = "/listAllJobsByStatusNew/{userId}", produces = "application/json")
-    public List<JobEntity> listAllJobsByStatusNew(@PathVariable("userId") Long userId) {
-        return jobService.listAllJobsByStatusNew(userId);
+    @GetMapping(path = "/listAllJobsByStatusNew/", produces = "application/json")
+    public List<JobEntity> listAllJobsByStatusNew() {
+        return jobService.listAllJobsByStatusNew();
     }
 
     @GetMapping(path = "/findJobById/{jobId}", produces = "application/json")
@@ -40,5 +42,14 @@ public class JobController {
     @GetMapping(path = "/nextStatus/{jobId}", produces = "application/json")
     public JobStatusEnum nextStatus(@PathVariable("jobId") Long jobId) throws Exception {
         return jobService.nextStatus(jobId);
+    }
+
+    @GetMapping(path = "/changeDetail", produces = "application/json")
+    public JobEntity changeDetail(@RequestBody JobEntity updatedJob) {
+        try {
+            return jobService.changeDetail(updatedJob);
+        } catch (Exception e) {
+            throw new NotFoundException();
+        }
     }
 }
