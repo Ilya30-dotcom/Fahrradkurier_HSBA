@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout= "http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div layout:fragment="content">
+    <div class="my-4">
+        <h1>Register</h1>
+    </div>
+
+    <div class="mb-4" th:if="${param.error}">
+        <strong class="text-danger">Registrierung fehlgeschlagen</strong>
+    </div>
+
+
+    <form method="post" th:action="@{/register}" >
+
+        <div class="form-floating mb-3">
+            <label for="registerInputFirstName">First Name </label>
+            <input type="text" class="form-control" id="registerInputFirstName"
+                   name="firstName" aria-describedby="emailHelp" required>
+        </div>
+        <div class="form-floating mb-3">
+            <label for="registerInputLastName">Last Name </label>
+            <input type="text" class="form-control" id="registerInputLastName"
+                   name="lastName" aria-describedby="emailHelp" required>
+        </div>
+
+        <!-- Adresse fehlt -->
+        <div class="form-floating mb-3">
+            <label for="registerDob">Birthday </label>
+            <input type="date" class="form-control" id="registerDob"
+                   name="birthday" aria-describedby="emailHelp" required>
+        </div>
+        <div class="form-floating mb-3">
+            <label for="registerUserName">Username </label>
+            <input type="text" class="form-control" id="registerUserName"
+                   name="userName" aria-describedby="emailHelp" required>
+        </div>
+
+        <div class="form-floating mb-3">
+            <label for="registerPassword">Password </label>
+            <input type="text" class="form-control" id="registerPassword"
+                   name="password" aria-describedby="emailHelp" required>
+        </div>
+
+
+
+        <div>
+            <button class="btn btn-primary" type="submit">register</button>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
