@@ -12,26 +12,26 @@
             <h3 class="text-muted">
                 Abholadresse
             </h3>
-            <div class="row">
+           <div class="row">
                 <div class="mb-1 col-sm-8">
                     <label for="inputFromStreet">Straße</label>
-                    <input type="text" class="form-control" name="fromStreet" id="inputFromStreet" placeholder="Jungfernstieg"
+                    <input type="text" class="form-control" name="fromStreet" id="inputFromStreet"
                            th:classappend="${#fields.hasErrors('fromStreet') ? 'is-invalid' : ''}" th:field="*{fromStreet}">
                 </div>
                 <div class="mb-1 col-sm-4">
                     <label for="inputFromStreetNumber">Hausnummer</label>
-                    <input type="number" class="form-control" name="fromStreetNumber" id="inputFromStreetNumber" placeholder="1"
+                    <input type="number" class="form-control" name="fromStreetNumber" id="inputFromStreetNumber"
                            th:classappend="${#fields.hasErrors('fromStreetNumber') ? 'is-invalid' : ''}" th:field="*{fromStreetNumber}">
                 </div>
             </div>
             <div class="mb-1">
                 <label for="inputFromCity">Stadt</label>
-                <input type="text" class="form-control" name="fromCity" id="inputFromCity" placeholder="Hamburg"
+                <input type="text" class="form-control" name="fromCity" id="inputFromCity"
                        th:classappend="${#fields.hasErrors('fromCity') ? 'is-invalid' : ''}" th:field="*{fromCity}">
             </div>
             <div class="mb-1">
                 <label for="inputFromZip">Postleitzahl</label>
-                <input type="text" class="form-control" name="fromZip" id="inputFromZip" placeholder="20095"
+                <input type="text" class="form-control" name="fromZip" id="inputFromZip"
                        th:classappend="${#fields.hasErrors('fromZip') ? 'is-invalid' : ''}" th:field="*{fromZip}">
             </div>
         </div>
@@ -43,40 +43,49 @@
             <div class="row">
                 <div class="mb-1 col-sm-8">
                     <label for="inputToStreet">Straße</label>
-                    <input type="text" class="form-control" name="toStreet" id="inputToStreet" placeholder="Willy-Brandt-Straße"
+                    <input type="text" class="form-control" name="toStreet" id="inputToStreet"
                            th:classappend="${#fields.hasErrors('toStreet') ? 'is-invalid' : ''}" th:field="*{toStreet}">
                 </div>
                 <div class="mb-1 col-sm-4">
                     <label for="inputToStreetNumber">Hausnummer</label>
-                    <input type="number" class="form-control" name="toStreetNumber" id="inputToStreetNumber" placeholder="75"
+                    <input type="number" class="form-control" name="toStreetNumber" id="inputToStreetNumber"
                            th:classappend="${#fields.hasErrors('toStreetNumber') ? 'is-invalid' : ''}" th:field="*{toStreetNumber}">
                 </div>
             </div>
             <div class="mb-1">
                 <label for="inputToCity">Stadt</label>
-                <input type="text" class="form-control" name="toCity" id="inputToCity" placeholder="Hamburg"
+                <input type="text" class="form-control" name="toCity" id="inputToCity"
                        th:classappend="${#fields.hasErrors('toCity') ? 'is-invalid' : ''}" th:field="*{toCity}">
             </div>
             <div class="mb-1">
                 <label for="inputToZip">Postleitzahl</label>
-                <input type="text" class="form-control" name="toZip" id="inputToZip" placeholder="20459"
+                <input type="text" class="form-control" name="toZip" id="inputToZip"
                        th:classappend="${#fields.hasErrors('toZip') ? 'is-invalid' : ''}" th:field="*{toZip}">
             </div>
         </div>
 
-        <div class="col-2">
-            <div class="input-group">
-                <label class="input-group-text" for="selectType">Lieferart</label>
-                <select class="form-select" name="type" id="selectType" size="2"
-                        th:classappend="${#fields.hasErrors('type') ? 'is-invalid' : ''}" th:field="*{type}">
-                    <option th:each="jobType : ${jobTypeEnums}" th:text="${jobType.key}" th:value="${jobType.value}"></option>
-                </select>
+        <div class="col-12">
+            <div class="row justify-content-sm-end">
+                <div class="col-auto">
+                    <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen ausgefüllt sein</label>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <label class="input-group-text" for="selectType">Lieferart</label>
+                        <select class="form-select" name="type" id="selectType"
+                                th:classappend="${#fields.hasErrors('type') ? 'is-invalid' : ''}" th:field="*{type}">
+                            <option selected th:value="null">Bitte auswählen</option>
+                            <option th:each="jobType : ${jobTypeEnums}" th:text="${jobType.key}" th:value="${jobType.value}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="submit">Auftrag erstellen</button>
+                </div>
             </div>
         </div>
 
-        <div class="col-2">
-            <button class="btn btn-primary" type="submit">Auftrag erstellen</button>
-        </div>
 
     </form>
 
