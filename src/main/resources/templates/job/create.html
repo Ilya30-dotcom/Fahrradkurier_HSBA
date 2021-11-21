@@ -3,11 +3,82 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
 <div layout:fragment="content">
-    <div class="my-4">
-        <h1>Create new Job</h1>
+    <div class="mt-4 mb-5">
+        <h1>Neuen Job erstellen</h1>
     </div>
 
-    Adressen Klasse fehlt
+    <form class="row g-3" method="post" th:action="@{/jobs/create}" th:object="${jobForm}">
+        <div class="col-sm-6">
+            <h3 class="text-muted">
+                Abholadresse
+            </h3>
+            <div class="row">
+                <div class="mb-1 col-sm-8">
+                    <label for="inputFromStreet">Straße</label>
+                    <input type="text" class="form-control" name="fromStreet" id="inputFromStreet" placeholder="Jungfernstieg"
+                           th:classappend="${#fields.hasErrors('fromStreet') ? 'is-invalid' : ''}" th:field="*{fromStreet}">
+                </div>
+                <div class="mb-1 col-sm-4">
+                    <label for="inputFromStreetNumber">Hausnummer</label>
+                    <input type="number" class="form-control" name="fromStreetNumber" id="inputFromStreetNumber" placeholder="1"
+                           th:classappend="${#fields.hasErrors('fromStreetNumber') ? 'is-invalid' : ''}" th:field="*{fromStreetNumber}">
+                </div>
+            </div>
+            <div class="mb-1">
+                <label for="inputFromCity">Stadt</label>
+                <input type="text" class="form-control" name="fromCity" id="inputFromCity" placeholder="Hamburg"
+                       th:classappend="${#fields.hasErrors('fromCity') ? 'is-invalid' : ''}" th:field="*{fromCity}">
+            </div>
+            <div class="mb-1">
+                <label for="inputFromZip">Postleitzahl</label>
+                <input type="text" class="form-control" name="fromZip" id="inputFromZip" placeholder="20095"
+                       th:classappend="${#fields.hasErrors('fromZip') ? 'is-invalid' : ''}" th:field="*{fromZip}">
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <h3 class="text-muted">
+                Lieferadresse
+            </h3>
+            <div class="row">
+                <div class="mb-1 col-sm-8">
+                    <label for="inputToStreet">Straße</label>
+                    <input type="text" class="form-control" name="toStreet" id="inputToStreet" placeholder="Willy-Brandt-Straße"
+                           th:classappend="${#fields.hasErrors('toStreet') ? 'is-invalid' : ''}" th:field="*{toStreet}">
+                </div>
+                <div class="mb-1 col-sm-4">
+                    <label for="inputToStreetNumber">Hausnummer</label>
+                    <input type="number" class="form-control" name="toStreetNumber" id="inputToStreetNumber" placeholder="75"
+                           th:classappend="${#fields.hasErrors('toStreetNumber') ? 'is-invalid' : ''}" th:field="*{toStreetNumber}">
+                </div>
+            </div>
+            <div class="mb-1">
+                <label for="inputToCity">Stadt</label>
+                <input type="text" class="form-control" name="toCity" id="inputToCity" placeholder="Hamburg"
+                       th:classappend="${#fields.hasErrors('toCity') ? 'is-invalid' : ''}" th:field="*{toCity}">
+            </div>
+            <div class="mb-1">
+                <label for="inputToZip">Postleitzahl</label>
+                <input type="text" class="form-control" name="toZip" id="inputToZip" placeholder="20459"
+                       th:classappend="${#fields.hasErrors('toZip') ? 'is-invalid' : ''}" th:field="*{toZip}">
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="input-group">
+                <label class="input-group-text" for="selectType">Lieferart</label>
+                <select class="form-select" name="type" id="selectType" size="2"
+                        th:classappend="${#fields.hasErrors('type') ? 'is-invalid' : ''}" th:field="*{type}">
+                    <option th:each="jobType : ${jobTypeEnums}" th:text="${jobType.key}" th:value="${jobType.value}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <button class="btn btn-primary" type="submit">Auftrag erstellen</button>
+        </div>
+
+    </form>
 
 </div>
 </body>
