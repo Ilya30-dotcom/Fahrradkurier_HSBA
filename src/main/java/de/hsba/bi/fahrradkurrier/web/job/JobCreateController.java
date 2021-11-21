@@ -33,6 +33,7 @@ public class JobCreateController {
 
     @PostMapping("/")
     public String createJob(@RequestBody JobEntity job) {
+        JobEntity.builder().build();
         jobService.newJob(job);
         return "redirect:/jobs";
     }

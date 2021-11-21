@@ -19,7 +19,6 @@ public class JobIndexController {
     private final UserService userService;
     private final JobService jobService;
 
-
     @GetMapping()
     public String index(Model model) {
         User currentUser = userService.findCurrentUser();
@@ -41,7 +40,7 @@ public class JobIndexController {
     @GetMapping("/{jobId}/cancel")
     public String cancelJob(@PathVariable("jobId") Long id,Model model) {
         jobService.cancel(id);
-        return "job/index";
+        return "redirect:/jobs";
     }
 
 }
