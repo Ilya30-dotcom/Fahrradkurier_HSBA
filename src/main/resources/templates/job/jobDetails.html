@@ -1,10 +1,63 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<body>
+<body th:object="${job}">
 <div layout:fragment="content">
     <div class="my-4">
-        <h1>Jobs Details</h1>
+        <h1>Details zu Ihrem Job</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-3" th:switch="${job.getStatus().name()}">
+            <h3 class="text-muted">
+                Auftragsstatus
+            </h3>
+            <p class="h6" th:case="NEW">Neu - noch von keinem Kurier akzeptiert</p>
+            <p class="h6" th:case="ACCEPTED">Auftrag von einem Kurier akzeptiert</p>
+            <p class="h6" th:case="ON_THE_WAY">Ihr Kurier ist unterwegs</p>
+            <p class="h6" th:case="DELIVERED">Auftrag abgeschlossen</p>
+            <p class="h6" th:case="CANCELLED">Auftrag storniert</p>
+            <p class="h6" th:case="*">Anderes</p>
+        </div>
+        <div th:if="${job.getCourier() != null}" class="col-sm-2">
+            <h3 class="text-muted">
+                Ihr Kurier
+            </h3>
+            <p class="h6">[[${job.getCourier().getFirstName()}]] [[${job.getCourier().getLastName()}]]</p>
+        </div>
+        <div class="col-sm-2" th:switch="${job.getType().name()}">
+            <h3 class="text-muted">
+                Lieferart
+            </h3>
+            <p class="h6" th:case="LETTER">Brief</p>
+            <p class="h6" th:case="PACKAGE">Paket</p>
+            <p class="h6" th:case="*">Anderes</p>
+        </div>
+    </div>
+    <div class="row mt-5">
+       <div class="col-sm-3">
+           <h3 class="text-muted">
+               Abholadresse
+           </h3>
+            <address class="h6">
+                [[${job.getPickUpAddress().getStreet()}]], [[${job.getPickUpAddress().getStreetNumber()}]]
+                <br>
+                [[${job.getPickUpAddress().getZipCode()}]], [[${job.getPickUpAddress().getCity()}]]
+                <br>
+                Deutschland
+            </address>
+       </div>
+        <div class="col-sm-3">
+            <h3 class="text-muted">
+                Lieferadresse
+            </h3>
+            <address class="h6">
+                [[${job.getDeliveryAddress().getStreet()}]], [[${job.getDeliveryAddress().getStreetNumber()}]]
+                <br>
+                [[${job.getDeliveryAddress().getZipCode()}]], [[${job.getDeliveryAddress().getCity()}]]
+                <br>
+                Deutschland
+            </address>
+        </div>
     </div>
 
 

@@ -3,6 +3,7 @@ package de.hsba.bi.fahrradkurrier.web.job;
 import de.hsba.bi.fahrradkurrier.job.JobEntity;
 import de.hsba.bi.fahrradkurrier.job.JobService;
 import de.hsba.bi.fahrradkurrier.job.JobStatusEnum;
+import de.hsba.bi.fahrradkurrier.job.JobTypeEnum;
 import de.hsba.bi.fahrradkurrier.user.User;
 import de.hsba.bi.fahrradkurrier.user.UserService;
 import lombok.RequiredArgsConstructor;
