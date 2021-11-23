@@ -24,7 +24,9 @@ public class JobIndexController {
     public String index(Model model) {
         User currentUser = userService.findCurrentUser();
         if (currentUser != null) {
+            model.addAttribute("userRole", currentUser.getRole().name());
             model.addAttribute("userJobs", jobService.findAllJobsByUserId(currentUser.getId()));
+            model.addAttribute("newJobs", jobService.listAllJobsByStatusNew());
         }
         return "job/index";
     }
@@ -39,8 +41,23 @@ public class JobIndexController {
     }
 
     @GetMapping("/{jobId}/cancel")
-    public String cancelJob(@PathVariable("jobId") Long id,Model model) {
+    public String cancelJob(@PathVariable("jobId") Long id) {
         jobService.cancel(id);
+        return "redirect:/jobs";
+    }
+
+    @GetMapping("/{jobId}/accept")
+    public String acceptJob(@PathVariable("jobId") Long id) throws Exception {
+        JobEntity job = jobService.findJobById(id);
+        job.setCourier(userService.findCurrentUser());
+        jobService.changeDetail(job);
+        jobService.nextStatus(id);
+        return "redirect:/jobs";
+    }
+
+    @GetMapping("/{jobId}/nextStatus")
+    public String moveJobToNextStatus(@PathVariable("jobId") Long id) throws Exception {
+        jobService.nextStatus(id);
         return "redirect:/jobs";
     }
 

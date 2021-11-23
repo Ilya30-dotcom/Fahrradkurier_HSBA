@@ -4,27 +4,54 @@
 <body>
 <div layout:fragment="content">
     <div class="my-4">
-        <h1>Jobs</h1>
+        <h1>Jobübersicht</h1>
     </div>
 
-    <table th:if="${userJobs != null}" class="table">
-        <tr>
-            <th>Id</th>
-            <th>Date ordered</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tr th:each="job : ${userJobs}">
-            <td th:text="${job.id}"></td>
-            <td th:text="${job.orderDate}"></td>
-            <td th:text="${job.type}"></td>
-            <td th:text="${job.status}"></td>
-            <td><a th:href="${'/jobs/' + job.id}">Details</a></td>
-            <td><a th:href="${'/jobs/' + job.id + '/cancel'}">Stornieren</a></td>
-        </tr>
-    </table>
+    <div th:if="${userRole == 'COURIER'}">
+        <h5>Neue Aufträge</h5>
+        <table th:if="${newJobs != null}" class="table">
+            <tr>
+                <th>Erstellt am</th>
+                <th>Lieferart</th>
+                <th>Status</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr th:each="job : ${newJobs}">
+                <td th:text="${job.orderDate}"></td>
+                <td th:text="${job.type}"></td>
+                <td th:text="${job.status}"></td>
+                <td><a th:href="${'/jobs/' + job.id}">Details</a></td>
+                <td><a th:href="${'/jobs/' + job.id + '/accept'}">Annehmen</a></td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+    <div>
+        <h5>Meine Aufträge</h5>
+        <table th:if="${userJobs != null}" class="table">
+            <tr>
+                <th>Erstellt am</th>
+                <th>Lieferart</th>
+                <th>Status</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr th:each="job : ${userJobs}">
+                <td th:text="${job.orderDate}"></td>
+                <td th:text="${job.type}"></td>
+                <td th:text="${job.status}"></td>
+                <td><a th:href="${'/jobs/' + job.id}">Details</a></td>
+                <td th:if="${userRole == 'CUSTOMER'}"><a th:href="${'/jobs/' + job.id + '/cancel'}">Stornieren</a></td>
+                <td th:if="${userRole == 'COURIER'}">
+                    <a th:if="${!job.status.name().equals('DELIVERED') && !job.status.name().equals('CANCELLED')}"
+                       th:href="${'/jobs/' + job.id + '/nextStatus'}">Nächster Status</a>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+
 
 
     <div class="mb-4">
