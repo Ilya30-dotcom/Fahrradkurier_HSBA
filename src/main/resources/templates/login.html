@@ -2,32 +2,30 @@
 <html layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
-<div layout:fragment="content">
-    <div class="my-4">
-        <h1>Login</h1>
+<div layout:fragment="content" class="d-flex justify-content-center">
+    <div class="mt-5" style="width: 50%;">
+        <div class="my-4">
+            <h1>Login</h1>
+        </div>
+
+        <div class="mb-4" th:if="${param.error}">
+            <strong class="text-danger">Login fehlgeschlagen</strong>
+        </div>
+
+        <form method="post" th:action="@{/login}">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="username" id="inputUsername" placeholder="">
+                <label for="inputUsername">Nutzername</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" name="password" id="inputPassword" placeholder="">
+                <label for="inputPassword">Passwort</label>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Anmelden</button>
+            </div>
+        </form>
     </div>
-
-    <div class="mb-4" th:if="${param.error}">
-        <strong class="text-danger">Login fehlgeschlagen</strong>
-    </div>
-
-
-    <form method="post" th:action="@{/login}">
-
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="username" id="inputUsername" placeholder="">
-            <label for="inputUsername">Nutzername</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="password" class="form-control" name="password" id="inputPassword" placeholder="">
-            <label for="inputPassword">Passwort</label>
-        </div>
-
-        <div>
-            <button class="btn btn-primary" type="submit">Anmelden</button>
-        </div>
-
-    </form>
 </div>
 </body>
 </html>
