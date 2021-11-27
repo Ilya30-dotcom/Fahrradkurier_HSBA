@@ -3,12 +3,86 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
 <div layout:fragment="content">
-    <div th:if="${param.logout}" class="alert alert-success" id="logout-alert" role="alert">
+    <div th:if="${param.logout}" class="alert alert-success text-center" id="logout-alert" role="alert" style="width: 50%; margin: auto;">
         <strong>Sie haben sich erfolgreich abgemeldet</strong>
     </div>
-    <div class="my-4">
-        <h1>Landingpage</h1>
+
+    <div class="row justify-content-center my-5">
+        <div class="col-lg-3 col-md-4">
+            <div class="card my-2">
+                <img
+                        src="https://images.unsplash.com/photo-1581261946248-3f8d138d74dc"
+                        class="card-img-top"
+                        style="height: 300px;"
+                />
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-center align-items-center text-muted">
+                        <i class="fas fa-stopwatch me-3"></i>Schnell<i class="fas fa-stopwatch ms-3"></i></h5>
+                    <p class="card-text text-center text-muted">
+                        Auftrag innerhalb von 30 Minunten von Annahme bis zur Lieferung verfolgen.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+            <div class="card my-2">
+                <img
+                        src="https://images.pexels.com/photos/704767/pexels-photo-704767.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                        class="card-img-top"
+                        style="height: 300px;"
+                />
+                <div class="card-body d-flex flex-column justify-content-center">
+                    <h5 class="card-title d-flex justify-content-center align-items-center text-muted">
+                        <i class="far fa-id-badge me-3"></i>Unkompliziert<i class="far fa-id-badge ms-3"></i></h5>
+                    <p class="card-text text-center text-muted">
+                        Einfach und schnell registrieren und dann kann es los gehen.
+                    </p>
+                    <a href="#!" class="btn btn-primary mx-auto">Registrieren</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+            <div class="card my-2">
+                <img
+                        src="https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55"
+                        class="card-img-top"
+                        style="height: 300px;"
+                />
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-center align-items-center text-muted">
+                        <i class="fas fa-envelope me-3"></i>Zuverlässig<i class="fas fa-envelope ms-3"></i>
+                    </h5>
+                    <p class="card-text text-center text-muted">
+                        Unsere Kuriere bringen die Lieferung sicher an dein gewünschtes Ziel.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <h1 class="text-uppercase text-center text-muted">Uns gibt's in</h1>
+        </div>
+    </div>
+
+    <div class="container-fluid marquee text-uppercase">
+        <div class="container-fluid marquee__inner text-muted" aria-hidden="true">
+            <span>Berlin</span>
+            <span>Hamburg</span>
+            <span>Frankfurt</span>
+            <span>München</span>
+        </div>
+        <div class="container-fluid marquee__inner text-muted" aria-hidden="true">
+            <span>Berlin</span>
+            <span>Hamburg</span>
+            <span>Frankfurt</span>
+            <span>München</span>
+        </div>
+    </div>
+
 
     <div class="mb-4">
         <a th:href="@{/user}"> User Overview Page</a>
@@ -33,5 +107,41 @@
 </div>
 </body>
 </html>
+
+<style>
+    .marquee {
+        position: relative;
+        overflow: hidden;
+        display:flex;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        min-width: 100%;
+    }
+
+    .marquee__inner {
+        width: fit-content;
+        display: flex;
+        position: relative;
+        animation: marquee 20s linear infinite;
+        animation-play-state: running;
+    }
+
+    .marquee span {
+        font-size: 10vw;
+        padding: 0 2vw;
+        font-style: italic;
+    }
+
+    @keyframes marquee {
+        from {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+        to {
+            -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+        }
+    }
+</style>
 
 
