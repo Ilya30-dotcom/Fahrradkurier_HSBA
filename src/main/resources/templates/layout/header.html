@@ -10,12 +10,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <a th:unless="${#httpServletRequest.remoteUser}" class="btn btn-outline-success ms-auto" th:href="@{/login}">Login</a>
-                <form th:if="${#httpServletRequest.remoteUser}" class="ms-auto" method="post" th:action="@{/logout}">
-                    <button class="btn btn-outline-danger" type="submit">
-                        <span th:text="${#httpServletRequest.remoteUser}" />
-                        abmelden
-                    </button>
-                </form>
+                <button th:if="${#httpServletRequest.remoteUser}" class="ms-auto btn text-muted" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+                    <i class="fas fa-chevron-left me-2"></i>Navigation
+                </button>
             </div>
         </div>
     </nav>
