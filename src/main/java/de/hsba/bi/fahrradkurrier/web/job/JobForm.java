@@ -14,6 +14,8 @@ public class JobForm {
     @NotNull(message = "Bitte eine Lieferart auswählen")
     private JobTypeEnum type;
 
+    private String ownToAddress;
+
     @NotBlank(message = "Bitte ausfüllen")
     private String toCity;
 
@@ -25,6 +27,8 @@ public class JobForm {
 
     @NotBlank(message = "Bitte ausfüllen")
     private String toZip;
+
+    private String ownFromAddress;
 
     @NotBlank(message = "Bitte ausfüllen")
     private String fromCity;

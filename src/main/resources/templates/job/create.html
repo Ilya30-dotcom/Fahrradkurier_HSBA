@@ -2,74 +2,91 @@
 <html layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" style="width: 80%" class="mx-auto">
     <div class="mt-4 mb-5">
-        <h1>Neuen Job erstellen</h1>
+        <h1 class="text-muted">Neuen Auftrag erteilen</h1>
     </div>
 
+
     <form class="row g-3" method="post" th:action="@{/jobs/create}" th:object="${jobForm}">
-        <div class="col-sm-6">
-            <h3 class="text-muted">
-                Abholadresse
-            </h3>
-           <div class="row">
-                <div class="mb-1 col-sm-8">
-                    <label for="inputFromStreet">Straße</label>
-                    <input type="text" class="form-control" name="fromStreet" id="inputFromStreet"
-                           th:classappend="${#fields.hasErrors('fromStreet') ? 'is-invalid' : ''}" th:field="*{fromStreet}">
+        <div class="col-md-6">
+            <div class="card my-2">
+                <div class="card-body">
+                    <h3 class="text-muted">
+                        Abholadresse
+                    </h3>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="ownFromAddressCheckbox" value="true" th:checked="*{ownFromAddress == 'true'}" th:disabled="*{ownToAddress == 'true'}" th:field="*{ownFromAddress}"/>
+                        <label class="form-check-label" for="ownFromAddressCheckbox">Eigene Adresse verwenden</label>
+                    </div>
+                    <div class="row">
+                        <div class="mb-1 col-sm-8">
+                            <label for="inputFromStreet">Straße</label>
+                            <input type="text" class="form-control" name="fromStreet" id="inputFromStreet"
+                                   th:classappend="${#fields.hasErrors('fromStreet') ? 'is-invalid' : ''}" th:field="*{fromStreet}" th:readonly="*{ownFromAddress == 'true'}">
+                        </div>
+                        <div class="mb-1 col-sm-4">
+                            <label for="inputFromStreetNumber">Hausnummer</label>
+                            <input type="number" class="form-control" name="fromStreetNumber" id="inputFromStreetNumber"
+                                   th:classappend="${#fields.hasErrors('fromStreetNumber') ? 'is-invalid' : ''}" th:field="*{fromStreetNumber}" th:readonly="*{ownFromAddress == 'true'}">
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <label for="inputFromCity">Stadt</label>
+                        <input type="text" class="form-control" name="fromCity" id="inputFromCity" readonly
+                               th:classappend="${#fields.hasErrors('fromCity') ? 'is-invalid' : ''}" th:field="*{fromCity}">
+                    </div>
+                    <div class="mb-1">
+                        <label for="inputFromZip">Postleitzahl</label>
+                        <input type="text" class="form-control" name="fromZip" id="inputFromZip"
+                               th:classappend="${#fields.hasErrors('fromZip') ? 'is-invalid' : ''}" th:field="*{fromZip}" th:readonly="*{ownFromAddress == 'true'}">
+                    </div>
                 </div>
-                <div class="mb-1 col-sm-4">
-                    <label for="inputFromStreetNumber">Hausnummer</label>
-                    <input type="number" class="form-control" name="fromStreetNumber" id="inputFromStreetNumber"
-                           th:classappend="${#fields.hasErrors('fromStreetNumber') ? 'is-invalid' : ''}" th:field="*{fromStreetNumber}">
-                </div>
-            </div>
-            <div class="mb-1">
-                <label for="inputFromCity">Stadt</label>
-                <input type="text" class="form-control" name="fromCity" id="inputFromCity"
-                       th:classappend="${#fields.hasErrors('fromCity') ? 'is-invalid' : ''}" th:field="*{fromCity}">
-            </div>
-            <div class="mb-1">
-                <label for="inputFromZip">Postleitzahl</label>
-                <input type="text" class="form-control" name="fromZip" id="inputFromZip"
-                       th:classappend="${#fields.hasErrors('fromZip') ? 'is-invalid' : ''}" th:field="*{fromZip}">
             </div>
         </div>
 
-        <div class="col-sm-6">
-            <h3 class="text-muted">
-                Lieferadresse
-            </h3>
-            <div class="row">
-                <div class="mb-1 col-sm-8">
-                    <label for="inputToStreet">Straße</label>
-                    <input type="text" class="form-control" name="toStreet" id="inputToStreet"
-                           th:classappend="${#fields.hasErrors('toStreet') ? 'is-invalid' : ''}" th:field="*{toStreet}">
+        <div class="col-md-6">
+            <div class="card my-2">
+                <div class="card-body">
+                    <h3 class="text-muted">
+                        Lieferadresse
+                    </h3>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="ownToAddressCheckbox" value="true" th:checked="*{ownToAddress == 'true'}" th:disabled="*{ownFromAddress == 'true'}" th:field="*{ownToAddress}"/>
+                        <label class="form-check-label" for="ownToAddressCheckbox">Eigene Adresse verwenden</label>
+                    </div>
+                    <div class="row">
+                        <div class="mb-1 col-sm-8">
+                            <label for="inputToStreet">Straße</label>
+                            <input type="text" class="form-control" name="toStreet" id="inputToStreet"
+                                   th:classappend="${#fields.hasErrors('toStreet') ? 'is-invalid' : ''}" th:field="*{toStreet}" th:readonly="*{ownToAddress == 'true'}">
+                        </div>
+                        <div class="mb-1 col-sm-4">
+                            <label for="inputToStreetNumber">Hausnummer</label>
+                            <input type="number" class="form-control" name="toStreetNumber" id="inputToStreetNumber"
+                                   th:classappend="${#fields.hasErrors('toStreetNumber') ? 'is-invalid' : ''}" th:field="*{toStreetNumber}" th:readonly="*{ownToAddress == 'true'}">
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <label for="inputToCity">Stadt</label>
+                        <input type="text" class="form-control" name="toCity" id="inputToCity" readonly
+                               th:classappend="${#fields.hasErrors('toCity') ? 'is-invalid' : ''}" th:field="*{toCity}">
+                    </div>
+                    <div class="mb-1">
+                        <label for="inputToZip">Postleitzahl</label>
+                        <input type="text" class="form-control" name="toZip" id="inputToZip"
+                               th:classappend="${#fields.hasErrors('toZip') ? 'is-invalid' : ''}" th:field="*{toZip}" th:readonly="*{ownToAddress == 'true'}">
+                    </div>
                 </div>
-                <div class="mb-1 col-sm-4">
-                    <label for="inputToStreetNumber">Hausnummer</label>
-                    <input type="number" class="form-control" name="toStreetNumber" id="inputToStreetNumber"
-                           th:classappend="${#fields.hasErrors('toStreetNumber') ? 'is-invalid' : ''}" th:field="*{toStreetNumber}">
-                </div>
-            </div>
-            <div class="mb-1">
-                <label for="inputToCity">Stadt</label>
-                <input type="text" class="form-control" name="toCity" id="inputToCity"
-                       th:classappend="${#fields.hasErrors('toCity') ? 'is-invalid' : ''}" th:field="*{toCity}">
-            </div>
-            <div class="mb-1">
-                <label for="inputToZip">Postleitzahl</label>
-                <input type="text" class="form-control" name="toZip" id="inputToZip"
-                       th:classappend="${#fields.hasErrors('toZip') ? 'is-invalid' : ''}" th:field="*{toZip}">
             </div>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 mb-5">
             <div class="row justify-content-sm-end">
                 <div class="col-auto">
                     <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen ausgefüllt sein</label>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-lg-3">
                     <div class="input-group">
                         <label class="input-group-text" for="selectType">Lieferart</label>
                         <select class="form-select" name="type" id="selectType"
@@ -85,12 +102,47 @@
                 </div>
             </div>
         </div>
-
-
     </form>
 
+    <script th:inline="javascript">
+        const userAddress = [[${userAddress}]];
+        $(function() {
+            document.getElementById('ownFromAddressCheckbox').onchange = function () {
+                const isCheckedFromAddress = this.checked;
+                $('#ownToAddressCheckbox').attr('disabled', isCheckedFromAddress);
+
+                $('#inputFromStreet').attr('value', isCheckedFromAddress? userAddress.street : '' );
+                $('#inputFromStreet').attr('readonly', isCheckedFromAddress);
+
+
+                $('#inputFromStreetNumber').attr('value', isCheckedFromAddress ? userAddress.streetNumber : '');
+                $('#inputFromStreetNumber').attr('readonly', isCheckedFromAddress);
+
+                $('#inputFromZip').attr('value', isCheckedFromAddress ? userAddress.zipCode : '');
+                $('#inputFromZip').attr('readonly', isCheckedFromAddress);
+            };
+
+
+            document.getElementById('ownToAddressCheckbox').onchange = function () {
+                const isCheckedToAddress = this.checked;
+                $('#ownFromAddressCheckbox').attr('disabled', isCheckedToAddress);
+
+                $('#inputToStreet').attr('value', isCheckedToAddress? userAddress.street : '' );
+                $('#inputToStreet').attr('readonly', isCheckedToAddress);
+
+
+                $('#inputToStreetNumber').attr('value', isCheckedToAddress ? userAddress.streetNumber : '');
+                $('#inputToStreetNumber').attr('readonly', isCheckedToAddress);
+
+                $('#inputToZip').attr('value', isCheckedToAddress ? userAddress.zipCode : '');
+                $('#inputToZip').attr('readonly', isCheckedToAddress);
+            };
+        });
+    </script>
 </div>
+
 </body>
 </html>
+
 
 

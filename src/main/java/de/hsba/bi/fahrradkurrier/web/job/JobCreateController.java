@@ -1,5 +1,6 @@
 package de.hsba.bi.fahrradkurrier.web.job;
 
+import de.hsba.bi.fahrradkurrier.Common.AddressEntity;
 import de.hsba.bi.fahrradkurrier.job.JobEntity;
 import de.hsba.bi.fahrradkurrier.job.JobService;
 import de.hsba.bi.fahrradkurrier.job.JobTypeEnum;
@@ -32,13 +33,19 @@ public class JobCreateController {
         return types;
     }
 
+    @ModelAttribute("userAddress")
+    public AddressEntity getAddress() {
+        User currentUser = userService.findCurrentUser();
+        return currentUser.getAddress();
+    }
+
     @GetMapping()
     public String index(Model model) {
         User currentUser = userService.findCurrentUser();
         if (currentUser != null) {
             model.addAttribute("currentUser", currentUser);
-            JobEntity job = JobEntity.builder().pickUpAddress(currentUser.getAddress()).build();
-            model.addAttribute("jobForm", formConverter.enrichAddress(job));
+            String city = currentUser.getAddress().getCity();
+            model.addAttribute("jobForm", formConverter.enrichCity(city));
             return "job/create";
         }
         return "redirect:/jobs";
@@ -52,6 +59,6 @@ public class JobCreateController {
         User currentUser = userService.findCurrentUser();
         JobEntity job = JobEntity.builder().customer(currentUser).build();
         jobService.newJob(formConverter.updateJob(job, form));
-        return "redirect:/jobs";
+        return "redirect:/jobs/" + job.getId();
     }
 }

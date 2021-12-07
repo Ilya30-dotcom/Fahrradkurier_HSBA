@@ -2,29 +2,15 @@ package de.hsba.bi.fahrradkurrier.web.job;
 
 import de.hsba.bi.fahrradkurrier.Common.AddressEntity;
 import de.hsba.bi.fahrradkurrier.job.JobEntity;
-import de.hsba.bi.fahrradkurrier.job.JobTypeEnum;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JobFormConverter {
 
-/**
-    JobForm toForm(JobTypeEnum type) {
+    JobForm enrichCity(String city) {
         JobForm form = new JobForm();
-        form.setType(type);
-        form.setDescription(entry.getDescription());
-        form.setCreditor(entry.getCreditor());
-        form.setDebitors(entry.getDebitors());
-        return form;
-    }
- */
-    JobForm enrichAddress(JobEntity job) {
-        JobForm form = new JobForm();
-        form.setFromCity(job.getPickUpAddress().getCity());
-        form.setFromZip(job.getPickUpAddress().getZipCode());
-        form.setFromStreet(job.getPickUpAddress().getStreet());
-        form.setFromStreetNumber(job.getPickUpAddress().getStreetNumber());
+        form.setFromCity(city);
+        form.setToCity(city);
         return form;
     };
 
@@ -46,6 +32,4 @@ public class JobFormConverter {
         job.setType(form.getType());
         return job;
     }
-
-
 }
