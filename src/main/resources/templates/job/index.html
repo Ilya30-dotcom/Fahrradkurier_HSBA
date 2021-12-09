@@ -2,62 +2,85 @@
 <html layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
-<div layout:fragment="content">
-    <div class="my-4">
+<div layout:fragment="content" style="width: 80%" class="mx-auto">
+    <div class="my-4 text-muted">
         <h1>Jobübersicht</h1>
     </div>
 
-    <div th:if="${userRole == 'COURIER'}">
-        <h5>Neue Aufträge</h5>
-        <table th:if="${newJobs != null}" class="table">
+    <h5 class="text-muted">Neue Aufträge</h5>
+    <div class="table-responsive" th:if="${userRole == 'COURIER'}">
+        <table class="table align-middle text-muted">
+            <thead>
             <tr>
-                <th>Erstellt am</th>
-                <th>Lieferart</th>
-                <th>Status</th>
-                <th></th>
-                <th></th>
+                <th scope="col" colspan="1" style="width: 20%">Erstellt am </th>
+                <th scope="col" colspan="1" style="width: 15%">Lieferart</th>
+                <th scope="col" colspan="1" style="width: 20%">Abholadresse</th>
+                <th scope="col" colspan="1" style="width: 20%">Stadt</th>
+                <th scope="col" colspan="1" style="width: 25%"></th>
             </tr>
-            <tr th:each="job : ${newJobs}">
-                <td th:text="${job.orderDate}"></td>
-                <td th:text="${job.type}"></td>
-                <td th:text="${job.status}"></td>
-                <td><a th:href="${'/jobs/' + job.id}">Details</a></td>
-                <td><a th:href="${'/jobs/' + job.id + '/accept'}">Annehmen</a></td>
-            </tr>
-        </table>
-        <hr/>
-    </div>
-    <div>
-        <h5>Meine Aufträge</h5>
-        <table th:if="${userJobs != null}" class="table">
-            <tr>
-                <th>Erstellt am</th>
-                <th>Lieferart</th>
-                <th>Status</th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr th:each="job : ${userJobs}">
-                <td th:text="${job.orderDate}"></td>
-                <td th:text="${job.type}"></td>
-                <td th:text="${job.status}"></td>
-                <td><a th:href="${'/jobs/' + job.id}">Details</a></td>
-                <td th:if="${userRole == 'CUSTOMER'}"><a th:href="${'/jobs/' + job.id + '/cancel'}">Stornieren</a></td>
-                <td th:if="${userRole == 'COURIER'}">
-                    <a th:if="${!job.status.name().equals('DELIVERED') && !job.status.name().equals('CANCELLED')}"
-                       th:href="${'/jobs/' + job.id + '/nextStatus'}">Nächster Status</a>
+            </thead>
+            <tbody>
+            <tr th:each="job : ${newJobs}" style="white-space: nowrap;">
+                <td th:text="${job.getOrderDate()}"></td>
+                <td th:text="${job.getType().name() == 'LETTER' ? 'Brief' : 'Paket'}"></td>
+                <td th:inline="text" th:text="|${job.getPickUpAddress().getStreet()}, ${job.getPickUpAddress().getStreetNumber()}|"></td>
+                <td th:text="${job.getPickUpAddress().getCity()}"></td>
+                <td class="d-grid gap-2 d-flex justify-content-end">
+                    <a class="btn btn-primary btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="left" title="Auftragdetails aufrufen" th:href="${'/jobs/' + job.getId()}">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a class="btn btn-success btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Auftrag annehmen" th:href="${'/jobs/' + job.getId() + '/accept'}">
+                        <i class="fas fa-check"></i>
+                    </a>
                 </td>
-
             </tr>
+            </tbody>
         </table>
     </div>
 
+    <h5 class="text-muted">Meine Aufträge</h5>
+    <div class="table-responsive" th:if="${userJobs != null}">
+        <table class="table align-middle text-muted">
+            <thead>
+            <tr>
+                <th scope="col" colspan="1" style="width: 20%">Erstellt am </th>
+                <th scope="col" colspan="1" style="width: 15%">Lieferart</th>
+                <th scope="col" colspan="1" style="width: 20%">Status</th>
+                <th scope="col" colspan="1" style="width: 45%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="job : ${userJobs}">
+                <td th:text="${job.getOrderDate()}"></td>
+                <td th:text="${job.getType().name() == 'LETTER' ? 'Brief' : 'Paket'}"></td>
+                <td th:text="${job.getStatus()}"></td>
+                <td class="d-grid gap-2 d-flex justify-content-end">
+                    <a class="btn btn-primary btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="left" title="Auftragdetails aufrufen" th:href="${'/jobs/' + job.getId()}">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a th:if="${userRole == 'COURIER' && !job.getStatus().name().equals('DELIVERED') && !job.getStatus().name().equals('CANCELLED')}" class="btn btn-success btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Status updaten" th:href="${'/jobs/' + job.getId() + '/accept'}">
+                        <i class="fas fa-forward"></i>
+                    </a>
+                    <a th:if="${userRole == 'CUSTOMER' && job.status.name().equals('NEW')}" class="btn btn-error btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Auftrag stornieren" th:href="${'/jobs/' + job.getId() + '/cancel'}">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 
     <div class="mb-4">
         <a th:href="@{jobs/create}"> Create new Job </a>
     </div>
 
+    <script th:inline="javascript">
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 
 
 </div>
