@@ -1,6 +1,5 @@
 package de.hsba.bi.fahrradkurrier.web.job;
 
-import de.hsba.bi.fahrradkurrier.Common.AddressEntity;
 import de.hsba.bi.fahrradkurrier.job.JobEntity;
 import de.hsba.bi.fahrradkurrier.job.JobService;
 import de.hsba.bi.fahrradkurrier.job.JobTypeEnum;
@@ -17,10 +16,9 @@ import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/jobs/create")
+@RequestMapping("/jobs/{jobId}/edit")
 @RequiredArgsConstructor
-public class JobCreateController {
-
+public class JobEditController {
     private final JobFormConverter formConverter;
     private final JobService jobService;
     private final UserService userService;
@@ -34,33 +32,36 @@ public class JobCreateController {
         return types;
     }
 
-    @ModelAttribute("userAddress")
-    public AddressEntity getAddress() {
+    @ModelAttribute("currentUser")
+    public User getCurrentUser() {
         User currentUser = userService.findCurrentUser();
-        return currentUser.getAddress();
+        return currentUser;
+    }
+
+    @ModelAttribute("job")
+    public JobEntity getJob(@PathVariable("jobId") Long id) {
+        JobEntity job = jobService.findJobById(id);
+        return job;
     }
 
     @GetMapping()
-    public String index(Model model) {
+    public String showEditableJob(@PathVariable("jobId") Long id, Model model) {
         User currentUser = userService.findCurrentUser();
         if (currentUser != null) {
-            model.addAttribute("currentUser", currentUser);
-            String city = currentUser.getAddress().getCity();
-            model.addAttribute("jobForm", formConverter.enrichCity(city));
-            return "job/create";
+            JobEntity job = jobService.findJobById(id);
+            model.addAttribute("jobForm", formConverter.convertToJobForm(job));
         }
-        return "redirect:/jobs";
+        return "job/jobEdit";
     }
 
     @PostMapping()
-    public String createJob(@ModelAttribute("jobForm") @Valid JobForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String updateJob(@PathVariable("jobId") Long id, @ModelAttribute("jobForm") @Valid JobForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws Exception {
         if (bindingResult.hasErrors()) {
-            return "job/create";
+            return "job/jobEdit";
         }
-        User currentUser = userService.findCurrentUser();
-        JobEntity job = JobEntity.builder().customer(currentUser).build();
-        jobService.newJob(formConverter.updateJob(job, form));
-        redirectAttributes.addAttribute("jobId", job.getId()).addFlashAttribute("isNewJob", true);
+        JobEntity job = jobService.findJobById(id);
+        jobService.changeDetail(formConverter.updateJob(job, form));
+        redirectAttributes.addAttribute("jobId", job.getId()).addFlashAttribute("jobEditedSuccessfully", true);;
         return "redirect:/jobs/{jobId}";
     }
 }

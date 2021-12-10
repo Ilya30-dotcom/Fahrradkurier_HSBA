@@ -14,6 +14,23 @@ public class JobFormConverter {
         return form;
     };
 
+    JobForm convertToJobForm(JobEntity job) {
+        JobForm form = new JobForm();
+
+        form.setFromStreet(job.getPickUpAddress().getStreet());
+        form.setFromStreetNumber(job.getPickUpAddress().getStreetNumber());
+        form.setFromZip(job.getPickUpAddress().getZipCode());
+        form.setFromCity(job.getPickUpAddress().getCity());
+
+        form.setToStreet(job.getDeliveryAddress().getStreet());
+        form.setToStreetNumber(job.getDeliveryAddress().getStreetNumber());
+        form.setToZip(job.getDeliveryAddress().getZipCode());
+        form.setToCity(job.getDeliveryAddress().getCity());
+
+        form.setType(job.getType());
+        return form;
+    }
+
     JobEntity updateJob(JobEntity job, JobForm form) {
         AddressEntity pickupAddress = AddressEntity.builder().
                 city(form.getFromCity())

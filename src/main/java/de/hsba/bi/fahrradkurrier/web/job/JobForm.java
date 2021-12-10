@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -22,9 +24,11 @@ public class JobForm {
     @NotBlank(message = "Bitte ausfüllen")
     private String toStreet;
 
+    @Pattern(regexp="^\\d{1,4}(?:[a-zA-z]{1,2})?$", message = "Korrekte Hausnummer angeben")
     @NotNull(message = "Bitte ausfüllen")
-    private Integer toStreetNumber;
+    private String toStreetNumber;
 
+    @Size(min = 5, max = 5, message="Postleitzahl muss 5-stellig sein")
     @NotBlank(message = "Bitte ausfüllen")
     private String toZip;
 
@@ -36,9 +40,11 @@ public class JobForm {
     @NotBlank(message = "Bitte ausfüllen")
     private String fromStreet;
 
+    @Pattern(regexp="^\\d{1,4}(?:[a-zA-z]{1,2})?$", message = "Korrekte Hausnummer angeben")
     @NotNull(message = "Bitte ausfüllen")
-    private Integer fromStreetNumber;
+    private String fromStreetNumber;
 
+    @Size(min = 5, max = 5, message="Postleitzahl muss 5-stellig sein")
     @NotBlank(message = "Bitte ausfüllen")
     private String fromZip;
 }

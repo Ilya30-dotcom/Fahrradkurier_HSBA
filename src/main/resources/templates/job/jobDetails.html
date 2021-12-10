@@ -2,9 +2,25 @@
 <html layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body th:object="${job}">
-<div layout:fragment="content">
-    <div class="my-4">
-        <h1>Details zu Ihrem Job</h1>
+<div layout:fragment="content" style="width: 80%" class="mx-auto">
+    <div th:if="${isNewJob}" class="alert alert-success text-center" id="new-job-alert" role="alert" style="width: 60%; margin: auto;">
+        <strong>Auftrag wurde erfolgreich erteilt</strong>
+    </div>
+
+    <div th:if="${jobEditedSuccessfully}" class="alert alert-success text-center" id="edit-alert" role="alert" style="width: 60%; margin: auto;">
+        <strong>Auftragsdaten wurden erfolgreich gespeichert</strong>
+    </div>
+
+
+
+    <div class="d-sm-flex justify-content-between align-items-center my-5">
+        <h1 class="text-muted">Details zum Job</h1>
+        <a th:if="${job.getStatus().toString().equals('NEW')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
+            Auftrag bearbeiten
+        </a>
+        <a th:if="${job.getStatus().toString().equals('ACCEPTED')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
+            Lieferadresse bearbeiten
+        </a>
     </div>
     <div class="row">
         <div class="col-md-3" th:switch="${job.getStatus().name()}">
@@ -38,13 +54,13 @@
            <h3 class="text-muted">
                Abholadresse
            </h3>
-            <address class="h6">
-                [[${job.getPickUpAddress().getStreet()}]], [[${job.getPickUpAddress().getStreetNumber()}]]
-                <br>
-                [[${job.getPickUpAddress().getZipCode()}]], [[${job.getPickUpAddress().getCity()}]]
-                <br>
-                Deutschland
-            </address>
+           <address class="h6">
+               [[${job.getPickUpAddress().getStreet()}]], [[${job.getPickUpAddress().getStreetNumber()}]]
+               <br>
+               [[${job.getPickUpAddress().getZipCode()}]], [[${job.getPickUpAddress().getCity()}]]
+               <br>
+               Deutschland
+           </address>
        </div>
         <div class="col-sm-3">
             <h3 class="text-muted">
@@ -59,6 +75,25 @@
             </address>
         </div>
     </div>
+
+
+    <script th:inline="javascript">
+        const isNewJob = [[${isNewJob}]];
+        const jobEditedSuccessfully = [[${jobEditedSuccessfully}]];
+        // alert fade animation
+        $(function() {
+            if (isNewJob) {
+                $("#new-job-alert").fadeTo(2000, 500).slideUp(500, function() {
+                    $("#new-job-alert").slideUp(500);
+                });
+            }
+            if (jobEditedSuccessfully) {
+                $("#edit-alert").fadeTo(2000, 500).slideUp(500, function() {
+                    $("#edit-alert").slideUp(500);
+                });
+            }
+        });
+    </script>
 
 
 </div>
