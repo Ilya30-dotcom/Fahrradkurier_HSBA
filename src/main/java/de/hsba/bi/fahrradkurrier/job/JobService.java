@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -27,7 +27,7 @@ public class JobService {
      * @return List of all JobEnitities found in the database
      */
     public List<JobEntity> listAllJobsByStatusNew() {
-        return jobRepository.findAllByStatus(JobStatusEnum.NEW);
+        return jobRepository.findAllByStatusOrderByOrderTimeStampDesc(JobStatusEnum.NEW);
     }
 
     /**
@@ -47,7 +47,7 @@ public class JobService {
      * @return List containing every JobEntity associated with the userId
      */
     public List<JobEntity> findAllJobsByUserId(Long userId) {
-        return jobRepository.findAllByCustomerIdOrCourierId(userId, userId);
+        return jobRepository.findAllByCustomerIdOrCourierIdOrderByOrderTimeStampDesc(userId, userId);
     }
 
     /**
@@ -56,7 +56,9 @@ public class JobService {
      * @param job New job that should be saved
      */
     public void newJob(JobEntity job) {
-        job.setOrderDate(LocalDate.now());
+        job.setOrderTimeStamp(LocalDateTime.now());
+        //make sure no existing job can be changed
+        job.setId(null);
         addressRepository.saveAll(Set.of(job.getDeliveryAddress(),job.getPickUpAddress()));
         jobRepository.save(job);
     }
@@ -81,8 +83,6 @@ public class JobService {
                 newStatus = JobStatusEnum.ON_THE_WAY;
                 break;
             case ON_THE_WAY:
-                newStatus = JobStatusEnum.DELIVERED;
-                break;
             case DELIVERED:
                 newStatus = JobStatusEnum.DELIVERED;
                 break;
@@ -120,7 +120,7 @@ public class JobService {
 
         if(currentJob.isPresent()) {
             //make sure user can't change orderDate
-            updatedJob.setOrderDate(currentJob.get().getOrderDate());
+            updatedJob.setOrderTimeStamp(currentJob.get().getOrderTimeStamp());
             return jobRepository.save(updatedJob);
         } else {
             throw new Exception("Job not found");

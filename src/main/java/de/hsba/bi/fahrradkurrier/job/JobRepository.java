@@ -9,13 +9,13 @@ import java.util.List;
 
 interface JobRepository extends JpaRepository<JobEntity, Long> {
 
-    List<JobEntity> findAllByStatus(JobStatusEnum status);
+    List<JobEntity> findAllByStatusOrderByOrderTimeStampDesc(JobStatusEnum status);
 
     List<JobEntity> findAllByCourierId(Long courierId);
 
     List<JobEntity> findAllByCustomerId(Long customerId);
 
-    List<JobEntity> findAllByCustomerIdOrCourierId(Long customerId, Long courierId);
+    List<JobEntity> findAllByCustomerIdOrCourierIdOrderByOrderTimeStampDesc(Long customerId, Long courierId);
 
 
     @Modifying
