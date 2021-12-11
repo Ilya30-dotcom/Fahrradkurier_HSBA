@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class AddressEntity {
 
     @Builder
-    public AddressEntity(String street, Integer streetNumber, String zipCode, String city) {
+    public AddressEntity(String street, String streetNumber, String zipCode, String city) {
         this.street = street;
         this.streetNumber = streetNumber;
         this.zipCode = zipCode;
@@ -29,7 +29,7 @@ public class AddressEntity {
     private String street;
 
     @Basic(optional = false)
-    private Integer streetNumber;
+    private String streetNumber;
 
     @Basic(optional = false)
     private String zipCode;

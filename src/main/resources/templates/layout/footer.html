@@ -1,9 +1,104 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <body>
-<th:block th:fragment="footer">
-  <hr>
-  Footer
+<th:block th:fragment="footer" style="height: 200px;">
+  <footer class="text-center text-lg-start bg-light text-muted">
+    <section
+            class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+    >
+      <div class="me-5 d-none d-lg-block">
+        <span>Verpasse keine News: </span>
+      </div>
+      <div>
+        <a href="https://www.facebook.com" class="btn me-5 text-reset" target="_blank">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.twitter.com" class="btn me-5 text-reset" target="_blank">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.google.com" class="btn me-5 text-reset" target="_blank">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="https://www.instagram.com" class="btn me-5 text-reset" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.linkedin.com" class="btn me-4 text-reset" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/Ilya30-dotcom/Fahrradkurier_HSBA" class="btn me-4 text-reset">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <div class="row mt-3">
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4 d-flex justify-content-center justify-content-lg-start">
+              <i class="fas fa-biking me-3"></i>Kurierservice
+            </h6>
+            <p>
+              Der schnellste Kurierservice der Stadt
+            </p>
+          </div>
+
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              Standorte
+            </h6>
+            <p>
+              Berlin
+            </p>
+            <p>
+              Hamburg
+            </p>
+            <p>
+              Frankfurt
+            </p>
+            <p>
+              München
+            </p>
+          </div>
+
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              Weitere Infos
+            </h6>
+            <p>
+              <a href="" class="text-reset">Impressum</a>
+            </p>
+            <p>
+              <a href="" class="text-reset">Datenschutz</a>
+            </p>
+            <p>
+              <a href="" class="text-reset">Kontakt</a>
+            </p>
+            <p>
+              <a href="" class="text-reset">Hilfe</a>
+            </p>
+          </div>
+
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              Contact
+            </h6>
+            <p><i class="fas fa-home me-3"></i> Jungfernstieg 1, 22022, HH</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              info@kurrierservice.de
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    </div>
+  </footer>
 </th:block>
 </body>
 </html>

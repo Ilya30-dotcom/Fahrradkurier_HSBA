@@ -28,7 +28,7 @@ public class JobEntity {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne()
     private User courier;
 
     @Basic(optional = false)

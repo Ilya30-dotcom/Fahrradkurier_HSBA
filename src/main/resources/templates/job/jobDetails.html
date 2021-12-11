@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body th:object="${job}">
+<div layout:fragment="content" style="width: 80%" class="mx-auto">
+    <div th:if="${isNewJob}" class="alert alert-success text-center" id="new-job-alert" role="alert" style="width: 60%; margin: auto;">
+        <strong>Auftrag wurde erfolgreich erteilt</strong>
+    </div>
+
+    <div th:if="${jobEditedSuccessfully}" class="alert alert-success text-center" id="edit-alert" role="alert" style="width: 60%; margin: auto;">
+        <strong>Auftragsdaten wurden erfolgreich gespeichert</strong>
+    </div>
+
+
+
+    <div class="d-sm-flex justify-content-between align-items-center my-5">
+        <h1 class="text-muted">Details zum Auftrag</h1>
+        <a th:if="${job.getStatus().toString().equals('NEW')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
+            Auftrag bearbeiten
+        </a>
+        <a th:if="${job.getStatus().toString().equals('ACCEPTED')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
+            Lieferadresse bearbeiten
+        </a>
+    </div>
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div th:switch="${job.getStatus().toString()}" class="mb-5">
+                <h3 class="text-muted">
+                    Auftragsstatus
+                </h3>
+                <p class="h6 text-muted" th:case="NEW">Neu - noch von keinem Kurier akzeptiert</p>
+                <p class="h6 text-muted" th:case="ACCEPTED">Auftrag von einem Kurier akzeptiert</p>
+                <p class="h6 text-muted" th:case="ON_THE_WAY">Ihr Kurier ist unterwegs</p>
+                <p class="h6 text-muted" th:case="DELIVERED">Auftrag abgeschlossen</p>
+                <p class="h6 text-muted" th:case="CANCELLED">Auftrag storniert</p>
+                <p class="h6 text-muted" th:case="*">Anderes</p>
+            </div>
+
+            <div th:if="${job.getCourier() != null}" class="mb-5">
+                <h3 class="text-muted">
+                    Ihr Kurier
+                </h3>
+                <p class="h6 text-muted">[[${job.getCourier().getFirstName()}]] [[${job.getCourier().getLastName()}]]</p>
+            </div>
+
+            <div th:switch="${job.getType().toString()}" class="mb-5">
+                <h3 class="text-muted">
+                    Lieferart
+                </h3>
+                <p class="h6 text-muted" th:case="LETTER">Brief</p>
+                <p class="h6 text-muted" th:case="PACKAGE">Paket</p>
+                <p class="h6 text-muted" th:case="*">Anderes</p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h3 class="text-muted">
+                Abholadresse
+            </h3>
+            <address class="text-muted mb-5">
+                [[${job.getPickUpAddress().getStreet()}]], [[${job.getPickUpAddress().getStreetNumber()}]]
+                <br>
+                [[${job.getPickUpAddress().getZipCode()}]], [[${job.getPickUpAddress().getCity()}]]
+                <br>
+                Deutschland
+            </address>
+
+
+            <h3 class="text-muted">
+                Lieferadresse
+            </h3>
+            <address class="text-muted mb-5">
+                [[${job.getDeliveryAddress().getStreet()}]], [[${job.getDeliveryAddress().getStreetNumber()}]]
+                <br>
+                [[${job.getDeliveryAddress().getZipCode()}]], [[${job.getDeliveryAddress().getCity()}]]
+                <br>
+                Deutschland
+            </address>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        const isNewJob = [[${isNewJob}]];
+        const jobEditedSuccessfully = [[${jobEditedSuccessfully}]];
+        // alert fade animation
+        $(function() {
+            if (isNewJob) {
+                $("#new-job-alert").fadeTo(2000, 500).slideUp(500, function() {
+                    $("#new-job-alert").slideUp(500);
+                });
+            }
+            if (jobEditedSuccessfully) {
+                $("#edit-alert").fadeTo(2000, 500).slideUp(500, function() {
+                    $("#edit-alert").slideUp(500);
+                });
+            }
+        });
+    </script>
+
+
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<div layout:fragment="content" style="width: 80%" class="mx-auto">
+    <div class="mt-4 mb-5">
+        <h1 class="text-muted">Auftragsdetails bearbeiten</h1>
+    </div>
+
+    <form th:if="${job.getStatus().toString() == 'NEW'}" class="row g-3" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
+        <div class="col-md-6">
+            <div class="card my-2">
+                <div class="card-body">
+                    <h3 class="text-muted">
+                        Abholadresse
+                    </h3>
+                    <div class="row">
+                        <div class="mb-1 col-sm-8">
+                            <label for="inputFromStreet">Straße</label>
+                            <input type="text" class="form-control" name="fromStreet" id="inputFromStreet"
+                                   th:classappend="${#fields.hasErrors('fromStreet') ? 'is-invalid' : ''}" th:field="*{fromStreet}" th:readonly="*{ownFromAddress == 'true'}">
+                        </div>
+                        <div class="mb-1 col-sm-4">
+                            <label for="inputFromStreetNumber">Hausnummer</label>
+                            <input type="number" class="form-control" name="fromStreetNumber" id="inputFromStreetNumber"
+                                   th:classappend="${#fields.hasErrors('fromStreetNumber') ? 'is-invalid' : ''}" th:field="*{fromStreetNumber}" th:readonly="*{ownFromAddress == 'true'}">
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <label for="inputFromCity">Stadt</label>
+                        <input type="text" class="form-control" name="fromCity" id="inputFromCity" readonly
+                               th:classappend="${#fields.hasErrors('fromCity') ? 'is-invalid' : ''}" th:field="*{fromCity}">
+                    </div>
+                    <div class="mb-1">
+                        <label for="inputFromZip">Postleitzahl</label>
+                        <input type="text" class="form-control" name="fromZip" id="inputFromZip"
+                               th:classappend="${#fields.hasErrors('fromZip') ? 'is-invalid' : ''}" th:field="*{fromZip}" th:readonly="*{ownFromAddress == 'true'}">
+                        <label class="text-danger small" th:errors="*{fromZip}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card my-2">
+                <div class="card-body">
+                    <h3 class="text-muted">
+                        Lieferadresse
+                    </h3>
+                    <div class="row">
+                        <div class="mb-1 col-sm-8">
+                            <label for="inputToStreet">Straße</label>
+                            <input type="text" class="form-control" name="toStreet" id="inputToStreet"
+                                   th:classappend="${#fields.hasErrors('toStreet') ? 'is-invalid' : ''}" th:field="*{toStreet}" th:readonly="*{ownToAddress == 'true'}">
+                        </div>
+                        <div class="mb-1 col-sm-4">
+                            <label for="inputToStreetNumber">Hausnummer</label>
+                            <input type="number" class="form-control" name="toStreetNumber" id="inputToStreetNumber"
+                                   th:classappend="${#fields.hasErrors('toStreetNumber') ? 'is-invalid' : ''}" th:field="*{toStreetNumber}" th:readonly="*{ownToAddress == 'true'}">
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <label for="inputToCity">Stadt</label>
+                        <input type="text" class="form-control" name="toCity" id="inputToCity" readonly
+                               th:classappend="${#fields.hasErrors('toCity') ? 'is-invalid' : ''}" th:field="*{toCity}">
+                    </div>
+                    <div class="mb-1">
+                        <label for="inputToZip">Postleitzahl</label>
+                        <input type="text" class="form-control" name="toZip" id="inputToZip"
+                               th:classappend="${#fields.hasErrors('toZip') ? 'is-invalid' : ''}" th:field="*{toZip}" th:readonly="*{ownToAddress == 'true'}">
+                        <label class="text-danger small" th:errors="*{ToZip}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mb-5">
+            <div class="row justify-content-sm-end">
+                <div class="col-auto">
+                    <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen korrekt ausgefüllt sein</label>
+                </div>
+                <div class="col-lg-3">
+                    <div class="input-group">
+                        <label class="input-group-text" for="selectType">Lieferart</label>
+                        <select class="form-select" name="type" id="selectType"
+                                th:classappend="${#fields.hasErrors('type') ? 'is-invalid' : ''}" th:field="*{type}">
+                            <option selected th:value="null">Bitte auswählen</option>
+                            <option th:each="jobType : ${jobTypeEnums}" th:text="${jobType.key}" th:value="${jobType.value}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="submit">Speichern</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form th:if="${job.getStatus().toString() == 'ACCEPTED'}" class="row" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
+        <div class="col-12">
+            <div class="card my-2">
+                <div class="card-body">
+                    <input type="hidden" th:field="*{fromStreet}">
+                    <input type="hidden" th:field="*{fromStreetNumber}">
+                    <input type="hidden" th:field="*{fromCity}">
+                    <input type="hidden" th:field="*{fromZip}">
+                    <input type="hidden" th:field="*{type}">
+                    <h3 class="text-muted">
+                        Lieferadresse
+                    </h3>
+                    <div class="row">
+                        <div class="mb-1 col-sm-8">
+                            <label for="inputToStreet">Straße</label>
+                            <input type="text" class="form-control" name="toStreet" id="inputToStreet"
+                                   th:classappend="${#fields.hasErrors('toStreet') ? 'is-invalid' : ''}" th:field="*{toStreet}" th:readonly="*{ownToAddress == 'true'}">
+                        </div>
+                        <div class="mb-1 col-sm-4">
+                            <label for="inputToStreetNumber">Hausnummer</label>
+                            <input type="number" class="form-control" name="toStreetNumber" id="inputToStreetNumber"
+                                   th:classappend="${#fields.hasErrors('toStreetNumber') ? 'is-invalid' : ''}" th:field="*{toStreetNumber}" th:readonly="*{ownToAddress == 'true'}">
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <label for="inputToCity">Stadt</label>
+                        <input type="text" class="form-control" name="toCity" id="inputToCity" readonly
+                               th:classappend="${#fields.hasErrors('toCity') ? 'is-invalid' : ''}" th:field="*{toCity}">
+                    </div>
+                    <div class="mb-1">
+                        <label for="inputToZip">Postleitzahl</label>
+                        <input type="text" class="form-control" name="toZip" id="inputToZip"
+                               th:classappend="${#fields.hasErrors('toZip') ? 'is-invalid' : ''}" th:field="*{toZip}" th:readonly="*{ownToAddress == 'true'}">
+                        <label class="text-danger small" th:errors="*{toZip}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mb-5">
+            <div class="row justify-content-sm-end">
+                <div class="col-auto">
+                    <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen korrekt ausgefüllt sein</label>
+                </div>
+
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="submit">Speichern</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>
+
+
+

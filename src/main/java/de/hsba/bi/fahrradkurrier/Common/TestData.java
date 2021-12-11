@@ -33,13 +33,13 @@ public class TestData {
                 .city("Hamburg")
                 .street("Jungfernstieg")
                 .zipCode("22022")
-                .streetNumber(1).build();
+                .streetNumber("1").build();
 
         AddressEntity address2 = AddressEntity.builder()
                 .city("Hamburg")
                 .street("Jungfernstieg")
                 .zipCode("22022")
-                .streetNumber(2).build();
+                .streetNumber("2").build();
         User user1 = User.builder()
                 .userName("Ilja")
                 .firstName("Ilja")
