@@ -24,7 +24,9 @@
   <div th:if="${#httpServletRequest.remoteUser}">
     <div th:replace="layout/sidebar :: sidebar"></div>
   </div>
-  <div class="container-fluid px-0" layout:fragment="content" style="min-height: 80vh; overflow: hidden"></div>
+  <div class="container-fluid px-0" style="min-height: calc(100vh - 55px); overflow: hidden">
+    <div layout:fragment="content"></div>
+  </div>
 </body>
 <footer>
   <div th:replace="layout/footer :: footer"></div>
