@@ -2,7 +2,7 @@
 <html layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
-<div layout:fragment="content" style="width: 80%; min-height: 600px;" class="mx-auto">
+<div layout:fragment="content" style="width: 80%" class="mx-auto">
     <div class="d-sm-flex justify-content-between align-items-center my-5">
         <h1 class="text-muted">Auftragsübersicht</h1>
         <a th:if="${userRole == 'CUSTOMER'}" class="btn btn-primary btn-sm px-3" th:href="@{jobs/create}">
