@@ -14,7 +14,7 @@
 
 
     <div class="d-sm-flex justify-content-between align-items-center my-5">
-        <h1 class="text-muted">Details zum Job</h1>
+        <h1 class="text-muted">Details zum Auftrag</h1>
         <a th:if="${job.getStatus().toString().equals('NEW')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
             Auftrag bearbeiten
         </a>
@@ -22,51 +22,54 @@
             Lieferadresse bearbeiten
         </a>
     </div>
-    <div class="row">
-        <div class="col-md-3" th:switch="${job.getStatus().name()}">
-            <h3 class="text-muted">
-                Auftragsstatus
-            </h3>
-            <p class="h6" th:case="NEW">Neu - noch von keinem Kurier akzeptiert</p>
-            <p class="h6" th:case="ACCEPTED">Auftrag von einem Kurier akzeptiert</p>
-            <p class="h6" th:case="ON_THE_WAY">Ihr Kurier ist unterwegs</p>
-            <p class="h6" th:case="DELIVERED">Auftrag abgeschlossen</p>
-            <p class="h6" th:case="CANCELLED">Auftrag storniert</p>
-            <p class="h6" th:case="*">Anderes</p>
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div th:switch="${job.getStatus().toString()}" class="mb-5">
+                <h3 class="text-muted">
+                    Auftragsstatus
+                </h3>
+                <p class="h6 text-muted" th:case="NEW">Neu - noch von keinem Kurier akzeptiert</p>
+                <p class="h6 text-muted" th:case="ACCEPTED">Auftrag von einem Kurier akzeptiert</p>
+                <p class="h6 text-muted" th:case="ON_THE_WAY">Ihr Kurier ist unterwegs</p>
+                <p class="h6 text-muted" th:case="DELIVERED">Auftrag abgeschlossen</p>
+                <p class="h6 text-muted" th:case="CANCELLED">Auftrag storniert</p>
+                <p class="h6 text-muted" th:case="*">Anderes</p>
+            </div>
+
+            <div th:if="${job.getCourier() != null}" class="mb-5">
+                <h3 class="text-muted">
+                    Ihr Kurier
+                </h3>
+                <p class="h6 text-muted">[[${job.getCourier().getFirstName()}]] [[${job.getCourier().getLastName()}]]</p>
+            </div>
+
+            <div th:switch="${job.getType().toString()}" class="mb-5">
+                <h3 class="text-muted">
+                    Lieferart
+                </h3>
+                <p class="h6 text-muted" th:case="LETTER">Brief</p>
+                <p class="h6 text-muted" th:case="PACKAGE">Paket</p>
+                <p class="h6 text-muted" th:case="*">Anderes</p>
+            </div>
         </div>
-        <div th:if="${job.getCourier() != null}" class="col-sm-2">
+
+        <div class="col-md-6">
             <h3 class="text-muted">
-                Ihr Kurier
+                Abholadresse
             </h3>
-            <p class="h6">[[${job.getCourier().getFirstName()}]] [[${job.getCourier().getLastName()}]]</p>
-        </div>
-        <div class="col-sm-2" th:switch="${job.getType().name()}">
-            <h3 class="text-muted">
-                Lieferart
-            </h3>
-            <p class="h6" th:case="LETTER">Brief</p>
-            <p class="h6" th:case="PACKAGE">Paket</p>
-            <p class="h6" th:case="*">Anderes</p>
-        </div>
-    </div>
-    <div class="row mt-5">
-       <div class="col-sm-3">
-           <h3 class="text-muted">
-               Abholadresse
-           </h3>
-           <address class="h6">
-               [[${job.getPickUpAddress().getStreet()}]], [[${job.getPickUpAddress().getStreetNumber()}]]
-               <br>
-               [[${job.getPickUpAddress().getZipCode()}]], [[${job.getPickUpAddress().getCity()}]]
-               <br>
-               Deutschland
-           </address>
-       </div>
-        <div class="col-sm-3">
+            <address class="text-muted mb-5">
+                [[${job.getPickUpAddress().getStreet()}]], [[${job.getPickUpAddress().getStreetNumber()}]]
+                <br>
+                [[${job.getPickUpAddress().getZipCode()}]], [[${job.getPickUpAddress().getCity()}]]
+                <br>
+                Deutschland
+            </address>
+
+
             <h3 class="text-muted">
                 Lieferadresse
             </h3>
-            <address class="h6">
+            <address class="text-muted mb-5">
                 [[${job.getDeliveryAddress().getStreet()}]], [[${job.getDeliveryAddress().getStreetNumber()}]]
                 <br>
                 [[${job.getDeliveryAddress().getZipCode()}]], [[${job.getDeliveryAddress().getCity()}]]
@@ -75,7 +78,6 @@
             </address>
         </div>
     </div>
-
 
     <script th:inline="javascript">
         const isNewJob = [[${isNewJob}]];
