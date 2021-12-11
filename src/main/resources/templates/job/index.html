@@ -2,13 +2,16 @@
 <html layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
-<div layout:fragment="content" style="width: 80%" class="mx-auto">
-    <div class="my-4 text-muted">
-        <h1>Jobübersicht</h1>
+<div layout:fragment="content" style="width: 80%; min-height: 600px;" class="mx-auto">
+    <div class="d-sm-flex justify-content-between align-items-center my-5">
+        <h1 class="text-muted">Auftragsübersicht</h1>
+        <a th:if="${userRole == 'CUSTOMER'}" class="btn btn-primary btn-sm px-3" th:href="@{jobs/create}">
+            Auftrag erteilen
+        </a>
     </div>
 
-    <h5 class="text-muted">Neue Aufträge</h5>
-    <div class="table-responsive" th:if="${userRole == 'COURIER'}">
+    <h5 th:if="${userRole == 'COURIER'}" class="text-muted">Neue Aufträge</h5>
+    <div th:if="${userRole == 'COURIER'}" class="table-responsive mb-5">
         <table class="table align-middle text-muted">
             <thead>
             <tr>
@@ -36,10 +39,15 @@
             </tr>
             </tbody>
         </table>
+        <div th:if="${newJobs.size() == 0}">
+            <p class="text-muted">
+                Es sind momentan keine neuen Aufträge erteilt worden
+            </p>
+        </div>
     </div>
 
-    <h5 class="text-muted">Meine Aufträge</h5>
-    <div class="table-responsive" th:if="${userJobs != null}">
+    <h5 th:if="${userJobs.size() != 0}" class="text-muted">Meine Aufträge</h5>
+    <div th:if="${userJobs.size() != 0}" class="table-responsive mb-5">
         <table class="table align-middle text-muted">
             <thead>
             <tr>
@@ -61,7 +69,7 @@
                     <a th:if="${userRole == 'COURIER' && !job.getStatus().name().equals('DELIVERED') && !job.getStatus().name().equals('CANCELLED')}" class="btn btn-success btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Status updaten" th:href="${'/jobs/' + job.getId() + '/accept'}">
                         <i class="fas fa-forward"></i>
                     </a>
-                    <a th:if="${userRole == 'CUSTOMER' && job.status.name().equals('NEW')}" class="btn btn-error btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Auftrag stornieren" th:href="${'/jobs/' + job.getId() + '/cancel'}">
+                    <a th:if="${userRole == 'CUSTOMER' && job.status.name().equals('NEW')}" class="btn btn-danger btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Auftrag stornieren" th:href="${'/jobs/' + job.getId() + '/cancel'}">
                         <i class="fas fa-times"></i>
                     </a>
                 </td>
@@ -70,9 +78,17 @@
         </table>
     </div>
 
-
-    <div class="mb-4">
-        <a th:href="@{jobs/create}"> Create new Job </a>
+    <div th:if="${userJobs.size() == 0}" class="mb-5">
+        <div th:if="${userRole == 'COURIER'}">
+            <h5 class="text-muted">Es sieht hier noch ziemlich leer aus. Oben werden neue Aufträge gelistet, die Kuriere annehmen können.</h5>
+        </div>
+        <div th:if="${userRole == 'CUSTOMER'}">
+            <h5 class="text-muted mb-2">Es sieht hier noch ziemlich leer aus. Erstelle den ersten Auftrag</h5>
+            <br>
+            <a th:if="${userRole == 'CUSTOMER'}" class="btn btn-primary btn-sm px-3" th:href="@{jobs/create}">
+                Auftrag erstellen
+            </a>
+        </div>
     </div>
 
     <script th:inline="javascript">
@@ -81,7 +97,6 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
-
 
 </div>
 </body>
