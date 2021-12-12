@@ -13,38 +13,34 @@ import javax.validation.constraints.Size;
 @Setter
 public class JobForm {
 
-    @NotNull(message = "Bitte eine Lieferart auswählen")
+    @NotNull()
     private JobTypeEnum type;
 
     private String ownToAddress;
 
-    @NotBlank(message = "Bitte ausfüllen")
+    @NotBlank()
     private String toCity;
 
-    @NotBlank(message = "Bitte ausfüllen")
+    @NotBlank()
     private String toStreet;
 
-    @Pattern(regexp="^\\d{1,4}(?:[a-zA-z]{1,2})?$", message = "Korrekte Hausnummer angeben")
-    @NotNull(message = "Bitte ausfüllen")
+    @Pattern(regexp="^\\d{1,4}(?:[a-zA-z]{1,2})?$", message = "Korrekte Hausnummer angeben (z.B 123A)")
     private String toStreetNumber;
 
     @Size(min = 5, max = 5, message="Postleitzahl muss 5-stellig sein")
-    @NotBlank(message = "Bitte ausfüllen")
     private String toZip;
 
     private String ownFromAddress;
 
-    @NotBlank(message = "Bitte ausfüllen")
+    @NotBlank()
     private String fromCity;
 
-    @NotBlank(message = "Bitte ausfüllen")
+    @NotBlank()
     private String fromStreet;
 
-    @Pattern(regexp="^\\d{1,4}(?:[a-zA-z]{1,2})?$", message = "Korrekte Hausnummer angeben")
-    @NotNull(message = "Bitte ausfüllen")
+    @Pattern(regexp="^\\d{1,4}(?:[a-zA-z]{1,2})?$", message = "Korrekte Hausnummer angeben (z.B 123A)")
     private String fromStreetNumber;
 
     @Size(min = 5, max = 5, message="Postleitzahl muss 5-stellig sein")
-    @NotBlank(message = "Bitte ausfüllen")
     private String fromZip;
 }

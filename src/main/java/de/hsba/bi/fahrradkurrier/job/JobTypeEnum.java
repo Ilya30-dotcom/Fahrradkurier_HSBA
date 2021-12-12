@@ -1,8 +1,8 @@
 package de.hsba.bi.fahrradkurrier.job;
 
 public enum JobTypeEnum {
-    LETTER("Letter"),
-    PACKAGE("Package");
+    LETTER("Brief"),
+    PACKAGE("Paket");
 
     public final String label;
 

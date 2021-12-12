@@ -7,7 +7,7 @@
         <h1 class="text-muted">Auftragsdetails bearbeiten</h1>
     </div>
 
-    <form th:if="${job.getStatus().toString() == 'NEW'}" class="row g-3" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
+    <form th:if="${job.getStatus().toString() == 'Neu'}" class="row g-3" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
         <div class="col-md-6">
             <div class="card my-2">
                 <div class="card-body">
@@ -76,28 +76,28 @@
 
         <div class="col-12 mb-5">
             <div class="row justify-content-sm-end">
-                <div class="col-auto">
+                <div class="col-auto mb-3">
                     <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen korrekt ausgefüllt sein</label>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 mb-3">
                     <div class="input-group">
                         <label class="input-group-text" for="selectType">Lieferart</label>
                         <select class="form-select" name="type" id="selectType"
                                 th:classappend="${#fields.hasErrors('type') ? 'is-invalid' : ''}" th:field="*{type}">
                             <option selected th:value="null">Bitte auswählen</option>
-                            <option th:each="jobType : ${jobTypeEnums}" th:text="${jobType.key}" th:value="${jobType.value}"></option>
+                            <option th:each="jobType : ${T(de.hsba.bi.fahrradkurrier.job.JobTypeEnum).values()}" th:text="${jobType}" th:value="${jobType.name()}"></option>
                         </select>
                     </div>
                 </div>
 
-                <div class="col-auto">
+                <div class="col-auto mb-3">
                     <button class="btn btn-primary" type="submit">Speichern</button>
                 </div>
             </div>
         </div>
     </form>
 
-    <form th:if="${job.getStatus().toString() == 'ACCEPTED'}" class="row" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
+    <form th:if="${job.getStatus().toString() == 'Angenommen'}" class="row" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
         <div class="col-12">
             <div class="card my-2">
                 <div class="card-body">
@@ -138,11 +138,11 @@
 
         <div class="col-12 mb-5">
             <div class="row justify-content-sm-end">
-                <div class="col-auto">
-                    <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen korrekt ausgefüllt sein</label>
+                <div class="col-auto mb-3">
+                    <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen ausgefüllt sein</label>
                 </div>
 
-                <div class="col-auto">
+                <div class="col-auto mb-3">
                     <button class="btn btn-primary" type="submit">Speichern</button>
                 </div>
             </div>

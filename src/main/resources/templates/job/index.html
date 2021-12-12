@@ -24,8 +24,8 @@
             </thead>
             <tbody>
             <tr th:each="job : ${newJobs}" style="white-space: nowrap;">
-                <td th:text="${job.getOrderDate()}"></td>
-                <td th:text="${job.getType().name() == 'LETTER' ? 'Brief' : 'Paket'}"></td>
+                <td th:text="${#temporals.format(job.getOrderTimeStamp(), 'dd.MM.yyyy HH:mm')} + ' Uhr'"></td>
+                <td th:text="${job.getType().toString()}"></td>
                 <td th:inline="text" th:text="|${job.getPickUpAddress().getStreet()}, ${job.getPickUpAddress().getStreetNumber()}|"></td>
                 <td th:text="${job.getPickUpAddress().getCity()}"></td>
                 <td class="d-grid gap-2 d-flex justify-content-end">
@@ -59,9 +59,9 @@
             </thead>
             <tbody>
             <tr th:each="job : ${userJobs}">
-                <td th:text="${job.getOrderDate()}"></td>
-                <td th:text="${job.getType().name() == 'LETTER' ? 'Brief' : 'Paket'}"></td>
-                <td th:text="${job.getStatus()}"></td>
+                <td th:text="${#temporals.format(job.getOrderTimeStamp(), 'dd.MM.yyyy HH:mm')} + ' Uhr'"></td>
+                <td th:text="${job.getType().toString()}"></td>
+                <td th:text="${job.getStatus().toString()}"></td>
                 <td class="d-grid gap-2 d-flex justify-content-end">
                     <a class="btn btn-primary btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="left" title="Auftragdetails aufrufen" th:href="${'/jobs/' + job.getId()}">
                         <i class="fas fa-info-circle"></i>

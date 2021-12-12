@@ -2,7 +2,6 @@ package de.hsba.bi.fahrradkurrier.job;
 
 import de.hsba.bi.fahrradkurrier.Exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.NotFound;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

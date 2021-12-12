@@ -17,6 +17,7 @@ public class JobIndexController {
     private final UserService userService;
     private final JobService jobService;
 
+
     @GetMapping()
     public String index(Model model) {
         User currentUser = userService.findCurrentUser();

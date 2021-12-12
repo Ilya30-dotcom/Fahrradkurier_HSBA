@@ -3,7 +3,6 @@ package de.hsba.bi.fahrradkurrier.web.job;
 import de.hsba.bi.fahrradkurrier.Common.AddressEntity;
 import de.hsba.bi.fahrradkurrier.job.JobEntity;
 import de.hsba.bi.fahrradkurrier.job.JobService;
-import de.hsba.bi.fahrradkurrier.job.JobTypeEnum;
 import de.hsba.bi.fahrradkurrier.user.User;
 import de.hsba.bi.fahrradkurrier.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/jobs/create")
@@ -25,14 +23,6 @@ public class JobCreateController {
     private final JobService jobService;
     private final UserService userService;
 
-    @ModelAttribute("jobTypeEnums")
-    public Map<String, JobTypeEnum> getTypes() {
-        Map<String, JobTypeEnum> types = Map.of(
-                "Brief", JobTypeEnum.LETTER,
-                "Paket", JobTypeEnum.PACKAGE
-        );
-        return types;
-    }
 
     @ModelAttribute("userAddress")
     public AddressEntity getAddress() {

@@ -1,11 +1,11 @@
 package de.hsba.bi.fahrradkurrier.job;
 
 public enum JobStatusEnum {
-    NEW("New"),
-    ACCEPTED("Accepted"),
-    ON_THE_WAY("On The Way"),
-    DELIVERED("Delivered"),
-    CANCELLED("Cancelled");
+    NEW("Neu"),
+    ACCEPTED("Angenommen"),
+    ON_THE_WAY("Auf dem Weg"),
+    DELIVERED("Geliefert"),
+    CANCELLED("Storniert");
 
     public final String label;
 

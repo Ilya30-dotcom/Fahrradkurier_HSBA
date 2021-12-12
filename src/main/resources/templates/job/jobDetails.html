@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<body th:object="${job}">
+<body>
 <div layout:fragment="content" style="width: 80%" class="mx-auto">
     <div th:if="${isNewJob}" class="alert alert-success text-center" id="new-job-alert" role="alert" style="width: 60%; margin: auto;">
         <strong>Auftrag wurde erfolgreich erteilt</strong>
@@ -14,11 +14,14 @@
 
 
     <div class="d-sm-flex justify-content-between align-items-center my-5">
-        <h1 class="text-muted">Details zum Auftrag</h1>
-        <a th:if="${job.getStatus().toString().equals('NEW')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
+        <h1 class="text-muted">
+            Details zum Auftrag
+            <p th:text="'(Erstellt am ' + ${#temporals.format(job.getOrderTimeStamp(), 'dd.MM.yyyy HH:mm')} + ' Uhr)'" class="fs-6 fw-light"></p>
+        </h1>
+        <a th:if="${job.getStatus().toString().equals('Neu')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
             Auftrag bearbeiten
         </a>
-        <a th:if="${job.getStatus().toString().equals('ACCEPTED')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
+        <a th:if="${job.getStatus().toString().equals('Angenommen')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
             Lieferadresse bearbeiten
         </a>
     </div>
@@ -28,12 +31,7 @@
                 <h3 class="text-muted">
                     Auftragsstatus
                 </h3>
-                <p class="h6 text-muted" th:case="NEW">Neu - noch von keinem Kurier akzeptiert</p>
-                <p class="h6 text-muted" th:case="ACCEPTED">Auftrag von einem Kurier akzeptiert</p>
-                <p class="h6 text-muted" th:case="ON_THE_WAY">Ihr Kurier ist unterwegs</p>
-                <p class="h6 text-muted" th:case="DELIVERED">Auftrag abgeschlossen</p>
-                <p class="h6 text-muted" th:case="CANCELLED">Auftrag storniert</p>
-                <p class="h6 text-muted" th:case="*">Anderes</p>
+                <p class="h6 text-muted" th:text="${job.getStatus().toString()}">Neu - noch von keinem Kurier akzeptiert</p>
             </div>
 
             <div th:if="${job.getCourier() != null}" class="mb-5">
@@ -43,13 +41,11 @@
                 <p class="h6 text-muted">[[${job.getCourier().getFirstName()}]] [[${job.getCourier().getLastName()}]]</p>
             </div>
 
-            <div th:switch="${job.getType().toString()}" class="mb-5">
+            <div class="mb-5">
                 <h3 class="text-muted">
                     Lieferart
                 </h3>
-                <p class="h6 text-muted" th:case="LETTER">Brief</p>
-                <p class="h6 text-muted" th:case="PACKAGE">Paket</p>
-                <p class="h6 text-muted" th:case="*">Anderes</p>
+                <p class="h6 text-muted" th:text="${job.getType().toString()}">Brief</p>
             </div>
         </div>
 
