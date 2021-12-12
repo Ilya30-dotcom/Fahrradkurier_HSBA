@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<div layout:fragment="content" style="width: 80%" class="mx-auto">
+
+
+<!-- Form Beginn -->
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-center">Registrierung</h3>
+
+
+                        <form th:action="@{/register}" th:object="${userForm}" method="post">
+                            <div class="form-group">
+                                <div class="mb-3">
+
+                                    <label for="inputFirstname">Vorname </label>
+                                    <input type="text" class="form-control" id="inputFirstname"
+                                           name="firstName" aria-describedby="emailHelp" required th:field="*{firstName}"
+                                           th:classappend="${#fields.hasErrors('firstName') ? 'is-invalid' : ''}">
+                                    <label class="text-danger small" th:errors="*{firstName}"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="inputLastname">Nachname </label>
+                                    <input type="text" class="form-control" id="inputLastname"
+                                           name="lastName" aria-describedby="emailHelp" required th:field="*{lastName}"
+                                           th:classappend="${#fields.hasErrors('lastName') ? 'is-invalid' : ''}">
+                                    <label class="text-danger small" th:errors="*{lastName}"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="inputBirthday">Geburtsdatum</label>
+                                    <input type="date" class="form-control" id="inputBirthday"
+                                           name="birthday" aria-describedby="emailHelp" required th:field="*{birthday}"
+                                           th:classappend="${#fields.hasErrors('birthday') ? 'is-invalid' : ''}">
+                                    <label class="text-danger small" th:errors="*{birthday}"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="inputUsername">Username </label>
+                                    <input type="text" class="form-control" id="inputUsername"
+                                           name="userName" aria-describedby="emailHelp" required th:field="*{userName}"
+                                           th:classappend="${#fields.hasErrors('userName') ? 'is-invalid' : ''}">
+                                    <label class="text-danger small" th:errors="*{userName}"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="inputPassword">Passwort</label>
+                                    <input type="password" class="form-control" id="inputPassword"
+                                           name="password"  required th:field="*{password}"
+                                           th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}">
+                                    <label class="text-danger small" th:errors="*{password}"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputStreet">Straße </label>
+                                    <input type="text" class="form-control" id="inputStreet"
+                                           name="street" aria-describedby="emailHelp" required th:field="*{street}"
+                                           th:classappend="${#fields.hasErrors('street') ? 'is-invalid' : ''}">
+                                    <label class="text-danger small" th:errors="*{street}"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputStreetNumber">Hausnummer </label>
+                                    <input type="text" class="form-control" id="inputStreetNumber"
+                                           name="streetNumber" aria-describedby="emailHelp" required th:field="*{streetNumber}"
+                                           th:classappend="${#fields.hasErrors('streetNumber') ? 'is-invalid' : ''}">
+                                    <label class="text-danger small" th:errors="*{streetNumber}"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputZipcode">PLZ </label>
+                                    <input type="number" class="form-control" id="inputZipcode"
+                                           name="zipCode" aria-describedby="emailHelp" required th:field="*{zipCode}"
+                                           th:classappend="${#fields.hasErrors('zipCode') ? 'is-invalid' : ''}">
+                                    <label class="text-danger small" th:errors="*{zipCode}"/>
+                                </div>
+                                <div class="mb-3" >
+                                    <label for="inputCity">Stadt </label>
+                                    <input type="text" class="form-control" id="inputCity"
+                                           name="city" aria-describedby="emailHelp" required th:field="*{city}"
+                                           th:classappend="${#fields.hasErrors('city') ? 'is-invalid' : ''}">
+                                    <label class="text-danger small" th:errors="*{city}"/>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mb-3">Register</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Form -->
+</div>
+</html>
