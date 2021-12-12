@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 
 @Controller
@@ -30,12 +32,14 @@ public class RegistrationController {
 
 
     @PostMapping()
-    public String register(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult) //, )
+    public String register(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes)
     {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-       userService.save(userFormConverter.toEntity(userForm));
-        return "redirect:/";
+        userService.save(userFormConverter.toEntity(userForm));
+        redirectAttributes.addFlashAttribute("registeredSuccesfully", true);
+
+        return "redirect:/login";
     }
 }
