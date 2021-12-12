@@ -31,7 +31,7 @@ public class User implements Comparable<User> {
     @Basic(optional = false)
     @Enumerated(EnumType.STRING)
     private UserRoleEnum role;
-    @OneToOne(cascade = CascadeType.MERGE, optional = false)
+    @OneToOne(cascade = CascadeType.MERGE, optional = true)
     private AddressEntity address;
 
     @Builder
