@@ -1,8 +1,8 @@
 package de.hsba.bi.fahrradkurrier.user;
 
 public enum UserRoleEnum {
-    COURIER("Courier"),
-    CUSTOMER("Customer");
+    COURIER("Kurier"),
+    CUSTOMER("Kunde");
 
     public final String label;
 
