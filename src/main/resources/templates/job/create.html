@@ -97,7 +97,7 @@
                         <select class="form-select" name="type" id="selectType"
                                 th:classappend="${#fields.hasErrors('type') ? 'is-invalid' : ''}" th:field="*{type}">
                             <option selected th:value="null">Bitte auswählen</option>
-                            <option th:each="jobType : ${T(de.hsba.bi.fahrradkurrier.job.JobTypeEnum).values()}" th:text="${jobType}" th:value="${jobType.name()}"></option>
+                            <option th:each="jobType : ${T(de.hsba.bi.fahrradkurier.job.JobTypeEnum).values()}" th:text="${jobType}" th:value="${jobType.name()}"></option>
                         </select>
                     </div>
                 </div>
