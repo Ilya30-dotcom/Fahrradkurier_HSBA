@@ -30,10 +30,10 @@
                 <td th:text="${job.getPickUpAddress().getCity()}"></td>
                 <td>
                     <div class="d-grid gap-2 d-flex justify-content-end">
-                        <a class="btn btn-primary btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="left" title="Auftragdetails aufrufen" th:href="${'/jobs/' + job.getId()}">
+                        <a class="btn btn-primary btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="left" title="Auftragdetails aufrufen" th:href="@{/jobs/{id}(id=${job.getId()})}">
                             <i class="fas fa-info-circle"></i>
                         </a>
-                        <a class="btn btn-success btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Auftrag annehmen" th:href="${'/jobs/' + job.getId() + '/accept'}">
+                        <a class="btn btn-success btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Auftrag annehmen" th:href="@{/jobs/{id}/accept(id=${job.getId()})}">
                             <i class="fas fa-check"></i>
                         </a>
                     </div>
@@ -66,13 +66,13 @@
                 <td th:text="${job.getStatus().toString()}"></td>
                 <td>
                     <div class="d-grid gap-2 d-flex justify-content-end">
-                        <a class="btn btn-primary btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="left" title="Auftragdetails aufrufen" th:href="${'/jobs/' + job.getId()}">
+                        <a class="btn btn-primary btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="left" title="Auftragdetails aufrufen" th:href="@{/jobs/{id}(id=${job.getId()})}">
                             <i class="fas fa-info-circle"></i>
                         </a>
-                        <a th:if="${userRole == 'COURIER' && !job.getStatus().name().equals('DELIVERED') && !job.getStatus().name().equals('CANCELLED')}" class="btn btn-success btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Status updaten" th:href="${'/jobs/' + job.getId() + '/accept'}">
+                        <a th:if="${userRole == 'COURIER' && !job.getStatus().name().equals('DELIVERED') && !job.getStatus().name().equals('CANCELLED')}" class="btn btn-success btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Status updaten" th:href="@{/jobs/{id}/nextStatus(id=${job.getId()})}">
                             <i class="fas fa-forward"></i>
                         </a>
-                        <a th:if="${userRole == 'CUSTOMER' && job.status.name().equals('NEW')}" class="btn btn-danger btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Auftrag stornieren" th:href="${'/jobs/' + job.getId() + '/cancel'}">
+                        <a th:if="${userRole == 'CUSTOMER' && job.status.name().equals('NEW')}" class="btn btn-danger btn-sm px-3"  data-bs-toggle="tooltip" data-bs-placement="right" title="Auftrag stornieren" th:href="@{/jobs/{id}/cancel(id=${job.getId()})}">
                             <i class="fas fa-times"></i>
                         </a>
                     </div>
@@ -95,12 +95,6 @@
         </div>
     </div>
 
-    <script th:inline="javascript">
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-    </script>
 
 </div>
 </body>
