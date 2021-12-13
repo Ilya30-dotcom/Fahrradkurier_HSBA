@@ -3,10 +3,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
 <div layout:fragment="content">
-  <div class="my-4">
-    <h1>Zutritt verboten</h1>
+  <div class="my-4 text-center">
+    <h1 class="text-muted">Zutritt nur für Kunden</h1>
   </div>
-  <p><strong>Bitte loggen Sie sich <a href="/login">hier</a> ein.</strong></p>
+  <div class="text-center">
+    <a class="btn btn-primary btn-sm px-3"  href="/">
+      Zurück zur Startseite
+    </a>
+  </div>
 </div>
 </body>
 </html>

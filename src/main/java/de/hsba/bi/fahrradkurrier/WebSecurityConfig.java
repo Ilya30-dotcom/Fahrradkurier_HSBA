@@ -18,7 +18,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                // .antMatchers(HttpMethod.GET, "/**").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/jobs").hasAnyRole(UserRoleEnum.CUSTOMER.toString(), UserRoleEnum.COURIER.toString())
                 .antMatchers("/jobs/**/edit").hasRole(UserRoleEnum.CUSTOMER.toString())
