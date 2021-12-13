@@ -39,22 +39,31 @@ public class JobIndexController {
 
     @GetMapping("/{jobId}/cancel")
     public String cancelJob(@PathVariable("jobId") Long id) {
-        jobService.cancel(id);
+        String userRole = userService.findCurrentUser().getRole().name();
+        if (userRole == "CUSTOMER") {
+            jobService.cancel(id);
+        }
         return "redirect:/jobs";
     }
 
     @GetMapping("/{jobId}/accept")
     public String acceptJob(@PathVariable("jobId") Long id) throws Exception {
-        JobEntity job = jobService.findJobById(id);
-        job.setCourier(userService.findCurrentUser());
-        jobService.changeDetail(job);
-        jobService.nextStatus(id);
+        String userRole = userService.findCurrentUser().getRole().name();
+        if (userRole == "COURIER") {
+            JobEntity job = jobService.findJobById(id);
+            job.setCourier(userService.findCurrentUser());
+            jobService.changeDetail(job);
+            jobService.nextStatus(id);
+        }
         return "redirect:/jobs";
     }
 
     @GetMapping("/{jobId}/nextStatus")
     public String moveJobToNextStatus(@PathVariable("jobId") Long id) throws Exception {
-        jobService.nextStatus(id);
+        String userRole = userService.findCurrentUser().getRole().name();
+        if (userRole == "COURIER") {
+            jobService.nextStatus(id);
+        }
         return "redirect:/jobs";
     }
 
