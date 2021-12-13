@@ -22,7 +22,6 @@ public class JobIndexController {
     public String index(Model model) {
         User currentUser = userService.findCurrentUser();
         if (currentUser != null) {
-            model.addAttribute("userRole", currentUser.getRole().name());
             model.addAttribute("userJobs", jobService.findAllJobsByUserId(currentUser.getId()));
             model.addAttribute("newJobs", jobService.listAllJobsByStatusNew());
         }
@@ -34,7 +33,6 @@ public class JobIndexController {
         User currentUser = userService.findCurrentUser();
         if (currentUser != null) {
             model.addAttribute("job", jobService.findJobById(id));
-            model.addAttribute("userRole", currentUser.getRole().name());
         }
         return "job/jobDetails";
     }
