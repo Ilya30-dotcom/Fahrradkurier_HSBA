@@ -34,6 +34,7 @@ public class JobIndexController {
         User currentUser = userService.findCurrentUser();
         if (currentUser != null) {
             model.addAttribute("job", jobService.findJobById(id));
+            model.addAttribute("userRole", currentUser.getRole().name());
         }
         return "job/jobDetails";
     }

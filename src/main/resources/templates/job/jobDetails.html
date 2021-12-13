@@ -18,10 +18,10 @@
             Details zum Auftrag
             <p th:text="'(Erstellt am ' + ${#temporals.format(job.getOrderTimeStamp(), 'dd.MM.yyyy HH:mm')} + ' Uhr)'" class="fs-6 fw-light"></p>
         </h1>
-        <a th:if="${job.getStatus().toString().equals('Neu')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
+        <a th:if="${userRole == 'CUSTOMER' && job.getStatus().toString().equals('Neu')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
             Auftrag bearbeiten
         </a>
-        <a th:if="${job.getStatus().toString().equals('Angenommen')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
+        <a th:if="${userRole == 'CUSTOMER' && job.getStatus().toString().equals('Angenommen')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
             Lieferadresse bearbeiten
         </a>
     </div>
@@ -45,7 +45,7 @@
                 <h3 class="text-muted">
                     Lieferart
                 </h3>
-                <p class="h6 text-muted" th:text="${job.getType().toString()}">Brief</p>
+                <p class="h6 text-muted" th:text="${job.getType().toString()}"></p>
             </div>
         </div>
 
