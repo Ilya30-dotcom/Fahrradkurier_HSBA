@@ -10,20 +10,21 @@
             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                 <li class="nav-item">
                     <a th:href="@{/}" class="nav-link text-truncate">
-                        <i class="fs-5 bi-table"></i><span class="ms-1 d-sm-inline">Startseite</span></a>
+                        <span class="ms-1 d-sm-inline">Startseite</span>
+                    </a>
                 </li>
                 <li class="nav-item" th:if="${userRole == 'CUSTOMER'}">
-                    <a th:href="@{/jobs/create}" data-bs-toggle="collapse" class="nav-link text-truncate">
+                    <a th:href="@{/jobs/create}" class="nav-link text-truncate">
                         <span class="ms-1  d-sm-inline">Auftrag erteilen</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/jobs}" class="nav-link text-truncate">
-                        <i class="fs-5 bi-house"></i><span class="ms-1 d-sm-inline">Meine Aufträge</span>
+                        <span class="ms-1 d-sm-inline">Meine Aufträge</span>
                     </a>
                 </li>
                 <li class="mt-5">
-                    <form data-bs-toggle="collapse" class="nav-link text-truncate ms-1 d-sm-inline" method="post" th:action="@{/logout}">
+                    <form class="nav-link text-truncate ms-1 d-sm-inline" method="post" th:action="@{/logout}">
                         <button class="btn btn-outline-danger" type="submit">
                             abmelden
                         </button>
