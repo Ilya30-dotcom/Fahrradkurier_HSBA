@@ -22,24 +22,23 @@ public class RegistrationController {
     private final UserFormConverter userFormConverter;
 
 
-
     @GetMapping()
-    public String home(Model model){
+    public String home(Model model) {
+        User currentUser = userService.findCurrentUser();
+        if (currentUser != null) {
+            return "redirect:/jobs";
+        }
         model.addAttribute("userForm", new UserForm());
         return "register";
     }
 
-
-
     @PostMapping()
-    public String register(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes)
-    {
+    public String register(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "register";
         }
         userService.save(userFormConverter.toEntity(userForm));
         redirectAttributes.addFlashAttribute("registeredSuccesfully", true);
-
         return "redirect:/login";
     }
 }

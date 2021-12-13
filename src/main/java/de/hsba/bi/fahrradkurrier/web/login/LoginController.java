@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/login")
 public class LoginController {
 
+
     @GetMapping
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = auth.getPrincipal();
-        return principal instanceof UserDetails ? "" : "login";
+        return principal instanceof UserDetails ? "redirect:/jobs" : "login";
     }
 }

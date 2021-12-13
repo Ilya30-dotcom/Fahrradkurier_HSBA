@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="sidebar">
-    <div class="offcanvas offcanvas-end bg-light" tabindex="-1" id="offcanvas" data-bs-scroll="true" data-bs-keyboard="false" data-bs-backdrop="false" style="width: 200px;">
+    <div class="offcanvas offcanvas-end bg-light" tabindex="-1" id="offcanvas" data-bs-scroll="true" data-bs-keyboard="false" data-bs-backdrop="false" style="width: 150px;">
         <div class="offcanvas-header d-flex justify-content-between align-items-center">
             <h6 class="offcanvas-title text-muted">Navigation</h6>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body px-0">
             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
-                <li>
+                <li class="nav-item">
                     <a th:href="@{/}" class="nav-link text-truncate">
-                        <i class="fs-5 bi-table"></i><span class="ms-1 d-sm-inline">Startseite</span></a>
+                        <span class="ms-1 d-sm-inline">Startseite</span>
+                    </a>
                 </li>
-                <li>
-                    <a href="" data-bs-toggle="collapse" class="nav-link text-truncate">
-                        <i class="fs-5 bi-speedometer2"></i><span class="ms-1  d-sm-inline">Neue Aufträge</span> </a>
+                <li class="nav-item" th:if="${userRole == 'CUSTOMER'}">
+                    <a th:href="@{/jobs/create}" class="nav-link text-truncate">
+                        <span class="ms-1  d-sm-inline">Auftrag erteilen</span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/jobs}" class="nav-link text-truncate">
-                        <i class="fs-5 bi-house"></i><span class="ms-1 d-sm-inline">Meine Aufträge</span>
+                        <span class="ms-1 d-sm-inline">Meine Aufträge</span>
                     </a>
                 </li>
                 <li class="mt-5">
-                    <form data-bs-toggle="collapse" class="nav-link text-truncate ms-1 d-sm-inline" method="post" th:action="@{/logout}">
+                    <form class="nav-link text-truncate ms-1 d-sm-inline" method="post" th:action="@{/logout}">
                         <button class="btn btn-outline-danger" type="submit">
-                            abmelden
+                            Abmelden
                         </button>
                     </form>
                 </li>

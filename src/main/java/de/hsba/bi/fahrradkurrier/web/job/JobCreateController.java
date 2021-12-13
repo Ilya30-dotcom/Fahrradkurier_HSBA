@@ -34,7 +34,6 @@ public class JobCreateController {
     public String index(Model model) {
         User currentUser = userService.findCurrentUser();
         if (currentUser != null) {
-            model.addAttribute("currentUser", currentUser);
             String city = currentUser.getAddress().getCity();
             model.addAttribute("jobForm", formConverter.enrichCity(city));
             return "job/create";

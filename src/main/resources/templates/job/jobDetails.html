@@ -12,19 +12,22 @@
     </div>
 
 
-
     <div class="d-sm-flex justify-content-between align-items-center my-5">
-        <h1 class="text-muted">
-            Details zum Auftrag
-            <p th:text="'(Erstellt am ' + ${#temporals.format(job.getOrderTimeStamp(), 'dd.MM.yyyy HH:mm')} + ' Uhr)'" class="fs-6 fw-light"></p>
-        </h1>
-        <a th:if="${job.getStatus().toString().equals('Neu')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
+        <div class="d-flex align-items-center">
+            <a th:href="@{/jobs}" style="position: relative; right: 30px; bottom: 18px;" class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="Zurück zu meinen Aufträgen"><i class="fas fa-chevron-left"></i></a>
+            <h1 class="text-muted" style="position: relative; right: 10px;">
+                Details zum Auftrag
+                <p th:text="'(Erstellt am ' + ${#temporals.format(job.getOrderTimeStamp(), 'dd.MM.yyyy HH:mm')} + ' Uhr)'" class="fs-6 fw-light"></p>
+            </h1>
+        </div>
+        <a th:if="${userRole == 'CUSTOMER' && job.getStatus().toString().equals('Neu')}" class="btn btn-primary btn-sm px-3"  th:href="@{/jobs/{id}/edit(id=${job.getId()})}">
             Auftrag bearbeiten
         </a>
-        <a th:if="${job.getStatus().toString().equals('Angenommen')}" class="btn btn-primary btn-sm px-3"  th:href="${'/jobs/' + job.getId() + '/edit'}">
+        <a th:if="${userRole == 'CUSTOMER' && job.getStatus().toString().equals('Angenommen')}" class="btn btn-primary btn-sm px-3"  th:href="@{/jobs/{id}/edit(id=${job.getId()})}">
             Lieferadresse bearbeiten
         </a>
     </div>
+
     <div class="row g-3">
         <div class="col-md-6">
             <div th:switch="${job.getStatus().toString()}" class="mb-5">
@@ -45,7 +48,7 @@
                 <h3 class="text-muted">
                     Lieferart
                 </h3>
-                <p class="h6 text-muted" th:text="${job.getType().toString()}">Brief</p>
+                <p class="h6 text-muted" th:text="${job.getType().toString()}"></p>
             </div>
         </div>
 
@@ -76,6 +79,7 @@
     </div>
 
     <script th:inline="javascript">
+
         const isNewJob = [[${isNewJob}]];
         const jobEditedSuccessfully = [[${jobEditedSuccessfully}]];
         // alert fade animation

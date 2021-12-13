@@ -23,12 +23,6 @@ public class JobEditController {
     private final UserService userService;
 
 
-    @ModelAttribute("currentUser")
-    public User getCurrentUser() {
-        User currentUser = userService.findCurrentUser();
-        return currentUser;
-    }
-
     @ModelAttribute("job")
     public JobEntity getJob(@PathVariable("jobId") Long id) {
         JobEntity job = jobService.findJobById(id);
