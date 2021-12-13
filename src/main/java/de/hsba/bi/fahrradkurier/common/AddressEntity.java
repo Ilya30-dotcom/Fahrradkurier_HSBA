@@ -1,4 +1,4 @@
-package de.hsba.bi.fahrradkurier.Common;
+package de.hsba.bi.fahrradkurier.common;
 
 import lombok.*;
 

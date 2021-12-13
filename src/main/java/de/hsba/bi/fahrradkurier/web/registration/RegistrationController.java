@@ -19,7 +19,7 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private final UserService userService;
-    private final UserFormConverter userFormConverter;
+    private final RegistrationFormConverter registrationFormConverter;
 
 
     @GetMapping()
@@ -28,16 +28,16 @@ public class RegistrationController {
         if (currentUser != null) {
             return "redirect:/jobs";
         }
-        model.addAttribute("userForm", new UserForm());
+        model.addAttribute("userForm", new RegistrationForm());
         return "register";
     }
 
     @PostMapping()
-    public String register(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String register(@ModelAttribute("userForm") @Valid RegistrationForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        userService.save(userFormConverter.toEntity(userForm));
+        userService.save(registrationFormConverter.toEntity(userForm));
         redirectAttributes.addFlashAttribute("registeredSuccesfully", true);
         return "redirect:/login";
     }

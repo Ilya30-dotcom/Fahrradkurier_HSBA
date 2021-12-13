@@ -1,4 +1,4 @@
-package de.hsba.bi.fahrradkurier.user;
+package de.hsba.bi.fahrradkurier.web.registration;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,28 +12,28 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class UserForm {
+public class RegistrationForm {
 
     @Pattern(regexp="^[^0-9]+$", message = "Zahlen hier invalide")
-    @NotBlank(message = "bitte ergänzen Sie das Feld")
+    @NotBlank(message = "Bitte ergänzen Sie das Feld")
     private String firstName;
 
-    @NotBlank(message = "bitte ergänzen Sie das Feld")
+    @NotBlank(message = "Bitte ergänzen Sie das Feld")
     private String userName;
 
     @Pattern(regexp="^[^0-9]+$", message = "Zahlen hier invalide")
-    @NotBlank(message = "bitte ergänzen Sie das Feld")
+    @NotBlank(message = "Bitte ergänzen Sie das Feld")
     private String lastName;
 
-    @NotNull(message = "bitte ergänzen Sie das Feld")
+    @NotNull(message = "Bitte ergänzen Sie das Feld")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
-    @NotNull(message = "bitte ergänzen Sie das Feld")
+    @NotNull(message = "Bitte ergänzen Sie das Feld")
     private String password;
 
     @Pattern(regexp="^[^0-9]+$", message = "Zahlen hier invalide")
-    @NotBlank(message = "bitte ergänzen Sie das Feld")
+    @NotBlank(message = "Bitte ergänzen Sie das Feld")
     private String street;
 
     @Pattern(regexp="^\\d{1,4}(?:[a-zA-z]{1,2})?$", message = "Korrekte Hausnummer angeben (z.B 123A)")
@@ -43,6 +43,6 @@ public class UserForm {
     private String zipCode;
 
     @Pattern(regexp="^[^0-9]+$", message = "Zahlen hier invalide")
-    @NotBlank (message = "bitte ergänzen Sie das Feld")
+    @NotBlank (message = "Bitte ergänzen Sie das Feld")
     private String city;
 }

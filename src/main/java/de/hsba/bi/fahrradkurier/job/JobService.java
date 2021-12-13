@@ -1,6 +1,6 @@
 package de.hsba.bi.fahrradkurier.job;
 
-import de.hsba.bi.fahrradkurier.Common.AddressRepository;
+import de.hsba.bi.fahrradkurier.common.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

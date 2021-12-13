@@ -1,6 +1,6 @@
 package de.hsba.bi.fahrradkurier.web.job;
 
-import de.hsba.bi.fahrradkurier.Common.AddressEntity;
+import de.hsba.bi.fahrradkurier.common.AddressEntity;
 import de.hsba.bi.fahrradkurier.job.JobEntity;
 import org.springframework.stereotype.Component;
 

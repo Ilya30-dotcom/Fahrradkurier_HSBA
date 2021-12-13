@@ -1,4 +1,4 @@
-package de.hsba.bi.fahrradkurier.Common;
+package de.hsba.bi.fahrradkurier.common;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
