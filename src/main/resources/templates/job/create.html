@@ -25,6 +25,7 @@
                             <label for="inputFromStreet">Straße</label>
                             <input type="text" class="form-control" name="fromStreet" id="inputFromStreet"
                                    th:classappend="${#fields.hasErrors('fromStreet') ? 'is-invalid' : ''}" th:field="*{fromStreet}" th:readonly="*{ownFromAddress == 'true'}">
+                            <label class="text-danger small" th:errors="*{fromStreet}"/>
                         </div>
                         <div class="mb-1 col-sm-4">
                             <label for="inputFromStreetNumber">Hausnummer</label>
@@ -63,6 +64,7 @@
                             <label for="inputToStreet">Straße</label>
                             <input type="text" class="form-control" name="toStreet" id="inputToStreet"
                                    th:classappend="${#fields.hasErrors('toStreet') ? 'is-invalid' : ''}" th:field="*{toStreet}" th:readonly="*{ownToAddress == 'true'}">
+                            <label class="text-danger small" th:errors="*{toStreet}"/>
                         </div>
                         <div class="mb-1 col-sm-4">
                             <label for="inputToStreetNumber">Hausnummer</label>
@@ -89,7 +91,7 @@
         <div class="col-12 mb-5">
             <div class="row justify-content-end">
                 <div class="col-auto mb-3">
-                    <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen ausgefüllt sein</label>
+                    <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen korrekt ausgefüllt sein</label>
                 </div>
                 <div class="col-lg-3 mb-3">
                     <div class="input-group">

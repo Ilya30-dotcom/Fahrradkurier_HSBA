@@ -14,15 +14,13 @@ import java.time.LocalDate;
 @Setter
 public class RegistrationForm {
 
-    @Pattern(regexp="^[^0-9]+$", message = "Zahlen hier invalide")
-    @NotBlank(message = "Bitte ergänzen Sie das Feld")
+    @Pattern(regexp="^[^0-9]+$", message = "Darf nicht leer sein und darf keine Zahlen enthalten")
     private String firstName;
 
     @NotBlank(message = "Bitte ergänzen Sie das Feld")
     private String userName;
 
-    @Pattern(regexp="^[^0-9]+$", message = "Zahlen hier invalide")
-    @NotBlank(message = "Bitte ergänzen Sie das Feld")
+    @Pattern(regexp="^[^0-9]+$", message = "Darf nicht leer sein und darf keine Zahlen enthalten")
     private String lastName;
 
     @NotNull(message = "Bitte ergänzen Sie das Feld")
@@ -32,8 +30,7 @@ public class RegistrationForm {
     @NotNull(message = "Bitte ergänzen Sie das Feld")
     private String password;
 
-    @Pattern(regexp="^[^0-9]+$", message = "Zahlen hier invalide")
-    @NotBlank(message = "Bitte ergänzen Sie das Feld")
+    @Pattern(regexp="^[^0-9]+$", message = "Darf nicht leer sein und darf keine Zahlen enthalten")
     private String street;
 
     @Pattern(regexp="^\\d{1,4}(?:[a-zA-z]{1,2})?$", message = "Korrekte Hausnummer angeben (z.B 123A)")
@@ -42,7 +39,6 @@ public class RegistrationForm {
     @Size(min = 5, max = 5, message="Postleitzahl muss 5-stellig sein")
     private String zipCode;
 
-    @Pattern(regexp="^[^0-9]+$", message = "Zahlen hier invalide")
-    @NotBlank (message = "Bitte ergänzen Sie das Feld")
+    @Pattern(regexp="^[^0-9]+$", message = "Darf nicht leer sein und darf keine Zahlen enthalten")
     private String city;
 }

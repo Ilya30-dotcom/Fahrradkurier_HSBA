@@ -10,7 +10,7 @@
         </h1>
     </div>
 
-    <form th:if="${job.getStatus().toString() == 'Neu'}" class="row g-3" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
+    <form th:if="${job.getStatus() == 'Neu'}" class="row g-3" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
         <div class="col-md-6">
             <div class="card my-2">
                 <div class="card-body">
@@ -22,11 +22,14 @@
                             <label for="inputFromStreet">Straße</label>
                             <input type="text" class="form-control" name="fromStreet" id="inputFromStreet"
                                    th:classappend="${#fields.hasErrors('fromStreet') ? 'is-invalid' : ''}" th:field="*{fromStreet}" th:readonly="*{ownFromAddress == 'true'}">
+                            <label class="text-danger small" th:errors="*{fromStreet}"/>
+
                         </div>
                         <div class="mb-1 col-sm-4">
                             <label for="inputFromStreetNumber">Hausnummer</label>
                             <input type="text" class="form-control" name="fromStreetNumber" id="inputFromStreetNumber"
                                    th:classappend="${#fields.hasErrors('fromStreetNumber') ? 'is-invalid' : ''}" th:field="*{fromStreetNumber}" th:readonly="*{ownFromAddress == 'true'}">
+                            <label class="text-danger small" th:errors="*{fromStreetNumber}"/>
                         </div>
                     </div>
                     <div class="mb-1">
@@ -55,11 +58,13 @@
                             <label for="inputToStreet">Straße</label>
                             <input type="text" class="form-control" name="toStreet" id="inputToStreet"
                                    th:classappend="${#fields.hasErrors('toStreet') ? 'is-invalid' : ''}" th:field="*{toStreet}" th:readonly="*{ownToAddress == 'true'}">
+                            <label class="text-danger small" th:errors="*{toStreet}"/>
                         </div>
                         <div class="mb-1 col-sm-4">
                             <label for="inputToStreetNumber">Hausnummer</label>
                             <input type="text" class="form-control" name="toStreetNumber" id="inputToStreetNumber"
                                    th:classappend="${#fields.hasErrors('toStreetNumber') ? 'is-invalid' : ''}" th:field="*{toStreetNumber}" th:readonly="*{ownToAddress == 'true'}">
+                            <label class="text-danger small" th:errors="*{toStreetNumber}"/>
                         </div>
                     </div>
                     <div class="mb-1">
@@ -100,7 +105,7 @@
         </div>
     </form>
 
-    <form th:if="${job.getStatus().toString() == 'Angenommen'}" class="row" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
+    <form th:if="${job.getStatus() == 'Angenommen'}" class="row" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
         <div class="col-12">
             <div class="card my-2">
                 <div class="card-body">
@@ -117,11 +122,14 @@
                             <label for="inputToStreet">Straße</label>
                             <input type="text" class="form-control" name="toStreet" id="inputToStreet"
                                    th:classappend="${#fields.hasErrors('toStreet') ? 'is-invalid' : ''}" th:field="*{toStreet}" th:readonly="*{ownToAddress == 'true'}">
+                            <label class="text-danger small" th:errors="*{toStreet}"/>
+
                         </div>
                         <div class="mb-1 col-sm-4">
                             <label for="inputToStreetNumber">Hausnummer</label>
                             <input type="number" class="form-control" name="toStreetNumber" id="inputToStreetNumber"
                                    th:classappend="${#fields.hasErrors('toStreetNumber') ? 'is-invalid' : ''}" th:field="*{toStreetNumber}" th:readonly="*{ownToAddress == 'true'}">
+                            <label class="text-danger small" th:errors="*{toStreetNumber}"/>
                         </div>
                     </div>
                     <div class="mb-1">
@@ -142,7 +150,7 @@
         <div class="col-12 mb-5">
             <div class="row justify-content-sm-end">
                 <div class="col-auto mb-3">
-                    <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen ausgefüllt sein</label>
+                    <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen korrekt ausgefüllt sein</label>
                 </div>
 
                 <div class="col-auto mb-3">
@@ -152,6 +160,9 @@
         </div>
     </form>
 
+    <div th:if="${job.getStatus() != 'Neu' && job.getStatus() != 'Angenommen'}" class="text-center text-muted">
+        <h6 th:text='|Tut uns Leid, Auftragdetails können im Status "${job.getStatus()}" nicht mehr bearbeitet werden.|'></h6>
+    </div>
 </div>
 </body>
 </html>
