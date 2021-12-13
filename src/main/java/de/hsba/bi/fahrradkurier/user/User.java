@@ -1,6 +1,6 @@
 package de.hsba.bi.fahrradkurier.user;
 
-import de.hsba.bi.fahrradkurier.Common.AddressEntity;
+import de.hsba.bi.fahrradkurier.common.AddressEntity;
 import lombok.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

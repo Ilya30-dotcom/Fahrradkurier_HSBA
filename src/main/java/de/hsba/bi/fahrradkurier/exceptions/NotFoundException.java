@@ -1,4 +1,4 @@
-package de.hsba.bi.fahrradkurier.Exceptions;
+package de.hsba.bi.fahrradkurier.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

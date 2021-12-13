@@ -1,4 +1,4 @@
-package de.hsba.bi.fahrradkurier.Common;
+package de.hsba.bi.fahrradkurier.common;
 
 import de.hsba.bi.fahrradkurier.job.JobEntity;
 import de.hsba.bi.fahrradkurier.job.JobService;
