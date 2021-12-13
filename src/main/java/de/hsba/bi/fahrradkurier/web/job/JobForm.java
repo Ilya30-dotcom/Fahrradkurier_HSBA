@@ -21,7 +21,7 @@ public class JobForm {
     @NotBlank()
     private String toCity;
 
-    @NotBlank()
+    @Pattern(regexp="^[^0-9]+$", message = "Darf nicht leer sein und darf keine Zahlen enthalten")
     private String toStreet;
 
     @Pattern(regexp="^\\d{1,4}(?:[a-zA-z]{1,2})?$", message = "Korrekte Hausnummer angeben (z.B 123A)")
@@ -35,7 +35,7 @@ public class JobForm {
     @NotBlank()
     private String fromCity;
 
-    @NotBlank()
+    @Pattern(regexp="^[^0-9]+$", message = "Darf nicht leer sein und darf keine Zahlen enthalten")
     private String fromStreet;
 
     @Pattern(regexp="^\\d{1,4}(?:[a-zA-z]{1,2})?$", message = "Korrekte Hausnummer angeben (z.B 123A)")
