@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="sidebar">
+
     <div class="offcanvas offcanvas-end bg-light" tabindex="-1" id="offcanvas" data-bs-scroll="true" data-bs-keyboard="false" data-bs-backdrop="false" style="width: 150px;">
+
+        <!-- Navigation title and close button -->
         <div class="offcanvas-header d-flex justify-content-between align-items-center">
             <h6 class="offcanvas-title text-muted">Navigation</h6>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
+
+        <!-- Navigation body with links and lougout button -->
         <div class="offcanvas-body px-0">
             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                 <li class="nav-item">
@@ -13,16 +18,20 @@
                         <span class="ms-1 d-sm-inline">Startseite</span>
                     </a>
                 </li>
+
+                <!-- Link to job creation is only show to customers -->
                 <li class="nav-item" th:if="${userRole == 'CUSTOMER'}">
                     <a th:href="@{/jobs/create}" class="nav-link text-truncate">
                         <span class="ms-1  d-sm-inline">Auftrag erteilen</span>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a th:href="@{/jobs}" class="nav-link text-truncate">
                         <span class="ms-1 d-sm-inline">Meine Aufträge</span>
                     </a>
                 </li>
+
                 <li class="mt-5">
                     <form class="nav-link text-truncate ms-1 d-sm-inline" method="post" th:action="@{/logout}">
                         <button class="btn btn-outline-danger" type="submit">
@@ -31,7 +40,6 @@
                     </form>
                 </li>
             </ul>
-
         </div>
 
     </div>

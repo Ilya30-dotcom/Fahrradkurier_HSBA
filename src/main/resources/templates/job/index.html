@@ -3,6 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
 <div layout:fragment="content" style="width: 80%" class="mx-auto">
+
+    <!-- Title and a button that is shown to customers only, which leads to job creation form -->
     <div class="d-sm-flex justify-content-between align-items-center my-5">
         <h1 class="text-muted">Auftragsübersicht</h1>
         <a th:if="${userRole == 'CUSTOMER'}" class="btn btn-primary btn-sm px-3" th:href="@{jobs/create}">
@@ -10,6 +12,7 @@
         </a>
     </div>
 
+    <!-- Table that is shown to couriers only, showing all new jobs -->
     <h5 th:if="${userRole == 'COURIER'}" class="text-muted">Neue Aufträge</h5>
     <div th:if="${userRole == 'COURIER'}" class="table-responsive mb-5">
         <table class="table align-middle text-muted">
@@ -41,6 +44,8 @@
             </tr>
             </tbody>
         </table>
+
+        <!-- Alternative message shown, if no new jobs are available -->
         <div th:if="${newJobs.size() == 0}">
             <p class="text-muted">
                 Es sind momentan keine neuen Aufträge erteilt worden
@@ -48,6 +53,8 @@
         </div>
     </div>
 
+    <!-- Table showing user jobs -->
+    <!-- It's only displayed, if user has any jobs. Courier accepted at least one job or customer created at least one job -->
     <h5 th:if="${userJobs.size() != 0}" class="text-muted">Meine Aufträge</h5>
     <div th:if="${userJobs.size() != 0}" class="table-responsive mb-5">
         <table class="table align-middle text-muted">
@@ -82,15 +89,16 @@
         </table>
     </div>
 
+    <!-- Alternative messages to courier and customer, encouraging them to take action to take on/ create a job -->
     <div th:if="${userJobs.size() == 0}" class="mb-5">
         <div th:if="${userRole == 'COURIER'}">
             <h5 class="text-muted">Es sieht hier noch ziemlich leer aus. Oben werden neue Aufträge gelistet, die Kuriere annehmen können.</h5>
         </div>
         <div th:if="${userRole == 'CUSTOMER'}">
-            <h5 class="text-muted mb-2">Es sieht hier noch ziemlich leer aus. Erstelle den ersten Auftrag</h5>
+            <h5 class="text-muted mb-2">Es sieht hier noch ziemlich leer aus. Erteilen Sie Ihren ersten Auftrag.</h5>
             <br>
             <a th:if="${userRole == 'CUSTOMER'}" class="btn btn-primary btn-sm px-3" th:href="@{jobs/create}">
-                Auftrag erstellen
+                Auftrag erteilen
             </a>
         </div>
     </div>

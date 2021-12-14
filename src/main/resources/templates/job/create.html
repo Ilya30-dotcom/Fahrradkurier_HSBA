@@ -3,13 +3,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
 <div layout:fragment="content" style="width: 80%" class="mx-auto">
+
+    <!-- Title with a navigation arrow to previous page -->
     <div class="my-5 d-flex align-items-center">
         <a th:href="@{/jobs}" style="position: relative; right: 30px;" class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="Zurück zu meinen Aufträgen"><i class="fas fa-chevron-left"></i></a>
         <h1 class="text-muted mb-0" style="position: relative; right: 10px;">Neuen Auftrag erteilen</h1>
     </div>
 
-
+    <!-- Form starts here -->
     <form class="row g-3" method="post" th:action="@{/jobs/create}" th:object="${jobForm}">
+
+        <!-- Left half with card for pickup address form fields -->
         <div class="col-md-6">
             <div class="card my-2">
                 <div class="card-body">
@@ -49,6 +53,7 @@
             </div>
         </div>
 
+        <!-- Right half with card for delivery address form fields  -->
         <div class="col-md-6">
             <div class="card my-2">
                 <div class="card-body">
@@ -88,11 +93,15 @@
             </div>
         </div>
 
+        <!-- Lower row with delivery type select and button -->
         <div class="col-12 mb-5">
             <div class="row justify-content-end">
+
+                <!-- In case an error in form validation occurs, this message pops up -->
                 <div class="col-auto mb-3">
                     <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen korrekt ausgefüllt sein</label>
                 </div>
+
                 <div class="col-lg-3 mb-3">
                     <div class="input-group">
                         <label class="input-group-text" for="selectType">Lieferart</label>
@@ -103,6 +112,7 @@
                         </select>
                     </div>
                 </div>
+
                 <div class="col-auto mb-3">
                     <button class="btn btn-primary" type="submit">Auftrag erstellen</button>
                 </div>
@@ -110,15 +120,16 @@
         </div>
     </form>
 
+    <!-- jQuery script for the own address feature  -->
+    <!-- Uses thymeleaf to bind userAddress variable from the model to the script -->
     <script th:inline="javascript">
-
         const userAddress = [[${userAddress}]];
         $(function() {
             document.getElementById('ownFromAddressCheckbox').onchange = function () {
                 const isCheckedFromAddress = this.checked;
                 $('#ownToAddressCheckbox').attr('disabled', isCheckedFromAddress);
 
-                $('#inputFromStreet').attr('value', isCheckedFromAddress? userAddress.street : '' );
+                $('#inputFromStreet').attr('value', isCheckedFromAddress ? userAddress.street : '' );
                 $('#inputFromStreet').attr('readonly', isCheckedFromAddress);
 
                 $('#inputFromStreetNumber').attr('value', isCheckedFromAddress ? userAddress.streetNumber : '');
@@ -128,12 +139,11 @@
                 $('#inputFromZip').attr('readonly', isCheckedFromAddress);
             };
 
-
             document.getElementById('ownToAddressCheckbox').onchange = function () {
                 const isCheckedToAddress = this.checked;
                 $('#ownFromAddressCheckbox').attr('disabled', isCheckedToAddress);
 
-                $('#inputToStreet').attr('value', isCheckedToAddress? userAddress.street : '' );
+                $('#inputToStreet').attr('value', isCheckedToAddress ? userAddress.street : '' );
                 $('#inputToStreet').attr('readonly', isCheckedToAddress);
 
                 $('#inputToStreetNumber').attr('value', isCheckedToAddress ? userAddress.streetNumber : '');

@@ -3,15 +3,18 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
 <div layout:fragment="content" style="width: 80%" class="mx-auto">
+
+    <!-- Success alert which is shown when customer was redirected to this page after creating a new job -->
     <div th:if="${isNewJob}" class="alert alert-success text-center" id="new-job-alert" role="alert" style="width: 60%; margin: auto;">
         <strong>Auftrag wurde erfolgreich erteilt</strong>
     </div>
 
+    <!-- Success alert which is shown when customer was redirected to this page after editing an existing job -->
     <div th:if="${jobEditedSuccessfully}" class="alert alert-success text-center" id="edit-alert" role="alert" style="width: 60%; margin: auto;">
         <strong>Auftragsdaten wurden erfolgreich gespeichert</strong>
     </div>
 
-
+    <!-- Title, navigation button to previous page and buttons to edit job, that are shown only to costumers and depend on job status -->
     <div class="d-sm-flex justify-content-between align-items-center my-5">
         <div class="d-flex align-items-center">
             <a th:href="@{/jobs}" style="position: relative; right: 30px; bottom: 18px;" class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="Zurück zu meinen Aufträgen"><i class="fas fa-chevron-left"></i></a>
@@ -29,12 +32,14 @@
     </div>
 
     <div class="row g-3">
+
+        <!-- Left side with data about job status, courier (if any accepted the job) and job type -->
         <div class="col-md-6">
-            <div th:switch="${job.getStatus().toString()}" class="mb-5">
+            <div class="mb-5">
                 <h3 class="text-muted">
                     Auftragsstatus
                 </h3>
-                <p class="h6 text-muted" th:text="${job.getStatus().toString()}">Neu - noch von keinem Kurier akzeptiert</p>
+                <p class="h6 text-muted" th:text="${job.getStatus()}"></p>
             </div>
 
             <div th:if="${job.getCourier() != null}" class="mb-5">
@@ -48,10 +53,11 @@
                 <h3 class="text-muted">
                     Lieferart
                 </h3>
-                <p class="h6 text-muted" th:text="${job.getType().toString()}"></p>
+                <p class="h6 text-muted" th:text="${job.getType()}"></p>
             </div>
         </div>
 
+        <!-- Right side with data about pickup and delivery addresses -->
         <div class="col-md-6">
             <h3 class="text-muted">
                 Abholadresse
@@ -63,7 +69,6 @@
                 <br>
                 Deutschland
             </address>
-
 
             <h3 class="text-muted">
                 Lieferadresse
@@ -78,11 +83,11 @@
         </div>
     </div>
 
+    <!-- jQuery that shows the alert fade animations -->
     <script th:inline="javascript">
-
         const isNewJob = [[${isNewJob}]];
         const jobEditedSuccessfully = [[${jobEditedSuccessfully}]];
-        // alert fade animation
+
         $(function() {
             if (isNewJob) {
                 $("#new-job-alert").fadeTo(2000, 500).slideUp(500, function() {
@@ -96,7 +101,6 @@
             }
         });
     </script>
-
 
 </div>
 </body>
