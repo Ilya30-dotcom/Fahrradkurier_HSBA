@@ -3,10 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
 <div layout:fragment="content">
+
+    <!-- Success alert which is shown when user was redirected to this page logging out -->
     <div th:if="${param.logout}" class="alert alert-success text-center" id="logout-alert" role="alert" style="width: 50%; margin: auto;">
         <strong>Sie haben sich erfolgreich abgemeldet</strong>
     </div>
 
+    <!-- 3 cards with unique value propositions -->
     <div class="row justify-content-center my-5">
         <div class="col-lg-3 col-md-4">
             <div class="card my-2">
@@ -62,12 +65,14 @@
         </div>
     </div>
 
+    <!-- Text preceding marquee -->
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
             <h1 class="text-uppercase text-center text-muted">Uns gibt's in</h1>
         </div>
     </div>
 
+    <!-- Marquee with cities moving across whole screen -->
     <div class="container-fluid marquee text-uppercase">
         <div class="container-fluid marquee__inner text-muted" aria-hidden="true">
             <span>Berlin</span>
@@ -83,8 +88,8 @@
         </div>
     </div>
 
+    <!-- jQuery script for the logout alert fade animation, that uses URL param "logout" to trigger it -->
     <script>
-        // alert fade animation
         $(function() {
             let searchParams = new URLSearchParams(window.location.search)
             if (searchParams.has("logout")) {
@@ -98,6 +103,7 @@
 </body>
 </html>
 
+<!-- CSS for the marquee -->
 <style>
     .marquee {
         position: relative;

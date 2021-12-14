@@ -3,10 +3,9 @@
 
 <body>
 <th:block th:fragment="footer" style="height: 200px;">
-  <footer class="text-center text-lg-start bg-light text-muted">
-    <section
-            class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
-    >
+  <!-- Social media icons block -->
+  <div class="text-center text-lg-start bg-light text-muted">
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
       <div class="me-5 d-none d-lg-block">
         <span>Verpasse keine News: </span>
       </div>
@@ -32,9 +31,12 @@
       </div>
     </section>
 
-    <section class="">
+    <!-- Information and links block -->
+    <section>
       <div class="container text-center text-md-start mt-5">
         <div class="row mt-3">
+
+          <!-- Logo, company name and slogan -->
           <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
             <h6 class="text-uppercase fw-bold mb-4 d-flex justify-content-center justify-content-lg-start">
               <i class="fas fa-biking me-3"></i>Kurierservice
@@ -44,6 +46,7 @@
             </p>
           </div>
 
+          <!-- Locations of service -->
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
             <h6 class="text-uppercase fw-bold mb-4">
               Standorte
@@ -62,6 +65,7 @@
             </p>
           </div>
 
+          <!-- Static pages links (since pages are non-existing, there is no link) -->
           <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
             <h6 class="text-uppercase fw-bold mb-4">
               Weitere Infos
@@ -80,6 +84,7 @@
             </p>
           </div>
 
+          <!-- Contact Data -->
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <h6 class="text-uppercase fw-bold mb-4">
               Contact
@@ -96,9 +101,10 @@
       </div>
     </section>
 
+    <!-- Lowest block of a darker grey -->
     <div class="p-4" style="background-color: rgba(0, 0, 0, 0.05);">
     </div>
-  </footer>
+  </div>
 </th:block>
 </body>
 </html>

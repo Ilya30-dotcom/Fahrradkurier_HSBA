@@ -2,16 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <th:block th:fragment="header">
+
+    <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
+
+            <!-- Company name with logo, that acts as link to landing page-->
             <a class="navbar-brand text-muted" th:href="@{/}"><i class="fas fa-biking me-3"></i>Kurierservice</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a th:unless="${#httpServletRequest.remoteUser}" class="btn btn-outline-success ms-auto" th:href="@{/login}">Login</a>
-                <button th:if="${#httpServletRequest.remoteUser}" class="ms-auto btn text-muted float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
-                    <i class="fas fa-chevron-left me-2"></i>Navigation
+
+            <!-- If user not logged in, shows login button. Otherwise navigation icon, that opens up sidebar, by toggling "offcanvas" -->
+            <div class="float-end">
+                <a th:unless="${#httpServletRequest.remoteUser}" class="btn btn-outline-success" th:href="@{/login}">Login</a>
+                <button class="btn btn-outline-secondary px-3 py-1" th:if="${#httpServletRequest.remoteUser}" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-expanded="true" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
         </div>

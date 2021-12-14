@@ -3,6 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
 <div layout:fragment="content" style="width: 80%" class="mx-auto">
+
+    <!-- Title with a navigation arrow to previous page -->
     <div class="my-5 d-flex align-items-center">
         <a th:href="@{/jobs/{id}(id=${job.getId()})}" style="position: relative; right: 30px;" class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="Zurück zu meinen Aufträgen"><i class="fas fa-chevron-left"></i></a>
         <h1 class="text-muted mb-0" style="position: relative; right: 10px;">
@@ -10,7 +12,10 @@
         </h1>
     </div>
 
-    <form th:if="${job.getStatus() == 'Neu'}" class="row g-3" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
+    <!-- Complete job form that is shown in case job status is "NEW" -->
+    <form th:if="${job.getStatus().toString() == 'Neu'}" class="row g-3" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
+
+        <!-- Left half with card for pickup address form fields -->
         <div class="col-md-6">
             <div class="card my-2">
                 <div class="card-body">
@@ -47,6 +52,7 @@
             </div>
         </div>
 
+        <!-- Right half with card for delivery address form fields  -->
         <div class="col-md-6">
             <div class="card my-2">
                 <div class="card-body">
@@ -82,11 +88,15 @@
             </div>
         </div>
 
+        <!-- Lower row with delivery type select and button -->
         <div class="col-12 mb-5">
             <div class="row justify-content-sm-end">
+
+                <!-- In case an error in form validation occurs, this message pops up -->
                 <div class="col-auto mb-3">
                     <label class="text-danger small" th:if="${#fields.hasAnyErrors()}">Alle markierten Felder müssen korrekt ausgefüllt sein</label>
                 </div>
+
                 <div class="col-lg-3 mb-3">
                     <div class="input-group">
                         <label class="input-group-text" for="selectType">Lieferart</label>
@@ -105,7 +115,8 @@
         </div>
     </form>
 
-    <form th:if="${job.getStatus() == 'Angenommen'}" class="row" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
+    <!-- Job delivery address form that is shown in case job status is "ACCEPTED" -->
+    <form th:if="${job.getStatus().toString() == 'Angenommen'}" class="row" method="post" th:action="@{/jobs/{id}/edit(id=${job.getId()})}" th:object="${jobForm}">
         <div class="col-12">
             <div class="card my-2">
                 <div class="card-body">
@@ -160,7 +171,8 @@
         </div>
     </form>
 
-    <div th:if="${job.getStatus() != 'Neu' && job.getStatus() != 'Angenommen'}" class="text-center text-muted">
+    <!-- Alternative message, in case user navigated to this page via url and job cannot be edited in the current job status -->
+    <div th:if="${job.getStatus().toString() != 'Neu' && job.getStatus().toString() != 'Angenommen'}" class="text-center text-muted">
         <h6 th:text='|Tut uns Leid, Auftragdetails können im Status "${job.getStatus()}" nicht mehr bearbeitet werden.|'></h6>
     </div>
 </div>
