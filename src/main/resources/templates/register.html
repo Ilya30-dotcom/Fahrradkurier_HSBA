@@ -77,11 +77,13 @@
                                            th:classappend="${#fields.hasErrors('zipCode') ? 'is-invalid' : ''}">
                                     <label class="text-danger small" th:errors="*{zipCode}"/>
                                 </div>
-                                <div class="mb-3" >
-                                    <label for="inputCity" class="text-muted">Stadt</label>
-                                    <input type="text" class="form-control" id="inputCity"
-                                           name="city" aria-describedby="emailHelp" required th:field="*{city}"
-                                           th:classappend="${#fields.hasErrors('city') ? 'is-invalid' : ''}">
+                                <div class="mb-3">
+                                    <label class="text-muted" for="inputCity">Stadt</label>
+                                    <select class="form-select" name="type" id="inputCity"
+                                            th:classappend="${#fields.hasErrors('city') ? 'is-invalid' : ''}" th:field="*{city}">
+                                        <option selected th:value="null">Bitte auswählen</option>
+                                        <option th:each="city : ${T(de.hsba.bi.fahrradkurier.common.CityEnum).values()}" th:text="${city}" th:value="${city}"></option>
+                                    </select>
                                     <label class="text-danger small" th:errors="*{city}"/>
                                 </div>
 
