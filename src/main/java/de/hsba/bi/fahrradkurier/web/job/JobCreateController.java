@@ -1,6 +1,7 @@
 package de.hsba.bi.fahrradkurier.web.job;
 
 import de.hsba.bi.fahrradkurier.common.AddressEntity;
+import de.hsba.bi.fahrradkurier.common.CityEnum;
 import de.hsba.bi.fahrradkurier.job.JobEntity;
 import de.hsba.bi.fahrradkurier.job.JobService;
 import de.hsba.bi.fahrradkurier.user.User;
@@ -34,7 +35,7 @@ public class JobCreateController {
     public String index(Model model) {
         User currentUser = userService.findCurrentUser();
         if (currentUser != null) {
-            String city = currentUser.getAddress().getCity();
+            CityEnum city = currentUser.getAddress().getCity();
             model.addAttribute("jobForm", formConverter.enrichCity(city));
             return "job/create";
         }

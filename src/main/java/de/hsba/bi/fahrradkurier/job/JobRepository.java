@@ -1,5 +1,6 @@
 package de.hsba.bi.fahrradkurier.job;
 
+import de.hsba.bi.fahrradkurier.common.CityEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +10,9 @@ import java.util.List;
 
 interface JobRepository extends JpaRepository<JobEntity, Long> {
 
-    List<JobEntity> findAllByStatusOrderByOrderTimeStampDesc(JobStatusEnum status);
+    @Query("FROM JobEntity j WHERE j.status = :status AND j.deliveryAddress.city = :city AND j.courier = null")
+    List<JobEntity> findAllByStatusAndCityIsResidentOrderByOrderTimeStampDesc(@Param(value = "status") JobStatusEnum status,
+                                                                              @Param(value = "city") CityEnum city);
 
     List<JobEntity> findAllByCourierId(Long courierId);
 

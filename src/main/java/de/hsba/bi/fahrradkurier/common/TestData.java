@@ -30,16 +30,30 @@ public class TestData {
         }
 
         AddressEntity address1 = AddressEntity.builder()
-                .city("Hamburg")
+                .city(CityEnum.HAMBURG)
                 .street("Jungfernstieg")
                 .zipCode("22022")
                 .streetNumber("1").build();
 
         AddressEntity address2 = AddressEntity.builder()
-                .city("Hamburg")
+                .city(CityEnum.HAMBURG)
                 .street("Jungfernstieg")
                 .zipCode("22022")
                 .streetNumber("2").build();
+
+        AddressEntity address3 = AddressEntity.builder()
+                .city(CityEnum.MUNICH)
+                .street("Maximilian Straße")
+                .zipCode("22022")
+                .streetNumber("5").build();
+
+        AddressEntity address4 = AddressEntity.builder()
+                .city(CityEnum.MUNICH)
+                .street("Maximilian Straße")
+                .zipCode("22022")
+                .streetNumber("2").build();
+
+
         User user1 = User.builder()
                 .userName("Ilja")
                 .firstName("Ilja")
@@ -66,7 +80,7 @@ public class TestData {
         //TODO: CHECK IF USER IS REALLY CURRIER
         jobService.newJob(
                 JobEntity.builder()
-                        .courier(user1)
+                        .courier(null)
                         .customer(user2)
                         .deliveryAddress(address1)
                         .pickUpAddress(address2)
@@ -76,10 +90,20 @@ public class TestData {
 
         jobService.newJob(
                 JobEntity.builder()
-                        .courier(user1)
+                        .courier(null)
                         .customer(user2)
                         .deliveryAddress(address2)
                         .pickUpAddress(address1)
+                        .type(JobTypeEnum.PACKAGE)
+                        .build()
+        );
+
+        jobService.newJob(
+                JobEntity.builder()
+                        .courier(null)
+                        .customer(user2)
+                        .deliveryAddress(address3)
+                        .pickUpAddress(address4)
                         .type(JobTypeEnum.PACKAGE)
                         .build()
         );
