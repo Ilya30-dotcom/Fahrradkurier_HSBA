@@ -1,16 +1,17 @@
 package de.hsba.bi.fahrradkurier.web.job;
 
 import de.hsba.bi.fahrradkurier.common.AddressEntity;
+import de.hsba.bi.fahrradkurier.common.CityEnum;
 import de.hsba.bi.fahrradkurier.job.JobEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JobFormConverter {
 
-    JobForm enrichCity(String city) {
+    JobForm enrichCity(CityEnum city) {
         JobForm form = new JobForm();
-        form.setFromCity(city);
-        form.setToCity(city);
+        form.setFromCity(city.toString());
+        form.setToCity(city.toString());
         return form;
     };
 
@@ -20,12 +21,12 @@ public class JobFormConverter {
         form.setFromStreet(job.getPickUpAddress().getStreet());
         form.setFromStreetNumber(job.getPickUpAddress().getStreetNumber());
         form.setFromZip(job.getPickUpAddress().getZipCode());
-        form.setFromCity(job.getPickUpAddress().getCity());
+        form.setFromCity(job.getPickUpAddress().getCity().toString());
 
         form.setToStreet(job.getDeliveryAddress().getStreet());
         form.setToStreetNumber(job.getDeliveryAddress().getStreetNumber());
         form.setToZip(job.getDeliveryAddress().getZipCode());
-        form.setToCity(job.getDeliveryAddress().getCity());
+        form.setToCity(job.getDeliveryAddress().getCity().toString());
 
         form.setType(job.getType());
         return form;
@@ -33,13 +34,13 @@ public class JobFormConverter {
 
     JobEntity updateJob(JobEntity job, JobForm form) {
         AddressEntity pickupAddress = AddressEntity.builder().
-                city(form.getFromCity())
+                city(CityEnum.valueOf(form.getFromCity().toUpperCase()))
                 .zipCode(form.getFromZip())
                 .street(form.getFromStreet())
                 .streetNumber(form.getFromStreetNumber())
                 .build();
         AddressEntity deliveryAddress = AddressEntity.builder().
-                city(form.getToCity())
+                city(CityEnum.valueOf(form.getToCity().toUpperCase()))
                 .zipCode(form.getToZip())
                 .street(form.getToStreet())
                 .streetNumber(form.getToStreetNumber())

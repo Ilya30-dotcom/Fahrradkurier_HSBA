@@ -1,6 +1,8 @@
 package de.hsba.bi.fahrradkurier.job;
 
 import de.hsba.bi.fahrradkurier.common.AddressRepository;
+import de.hsba.bi.fahrradkurier.user.User;
+import de.hsba.bi.fahrradkurier.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +22,16 @@ public class JobService {
 
     private final JobRepository jobRepository;
     private final AddressRepository addressRepository;
+    private final UserService userService;
 
     /**
-     * Find all new jobs
+     * Find all new jobs that are located in the users residental city
      *
      * @return List of all JobEnitities found in the database
      */
     public List<JobEntity> listAllJobsByStatusNew() {
-        return jobRepository.findAllByStatusOrderByOrderTimeStampDesc(JobStatusEnum.NEW);
+        User currentUser = userService.findCurrentUser();
+        return jobRepository.findAllByStatusAndCityIsResidentOrderByOrderTimeStampDesc(JobStatusEnum.NEW, currentUser.getAddress().getCity());
     }
 
     /**

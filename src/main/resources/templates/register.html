@@ -82,7 +82,7 @@
                                     <select class="form-select" name="type" id="inputCity"
                                             th:classappend="${#fields.hasErrors('city') ? 'is-invalid' : ''}" th:field="*{city}">
                                         <option selected th:value="null">Bitte auswählen</option>
-                                        <option th:each="city : ${T(de.hsba.bi.fahrradkurier.common.CityEnum).values()}" th:text="${city}" th:value="${city}"></option>
+                                        <option th:each="city : ${T(de.hsba.bi.fahrradkurier.common.CityEnum).values()}" th:text="${city}" th:value="${city.name()}"></option>
                                     </select>
                                     <label class="text-danger small" th:errors="*{city}"/>
                                 </div>

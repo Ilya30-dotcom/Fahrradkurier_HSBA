@@ -1,5 +1,6 @@
 package de.hsba.bi.fahrradkurier.web.registration;
 
+import de.hsba.bi.fahrradkurier.common.CityEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -39,6 +40,6 @@ public class RegistrationForm {
     @Size(min = 5, max = 5, message="Postleitzahl muss 5-stellig sein")
     private String zipCode;
 
-    @Pattern(regexp="^[^0-9]+$", message = "Darf nicht leer sein und darf keine Zahlen enthalten")
-    private String city;
+    @NotNull
+    private CityEnum city;
 }

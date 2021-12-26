@@ -6,7 +6,7 @@ public enum CityEnum{
     BERLIN("Berlin"),
     HAMBURG("Hamburg"),
     FRANKFURT("Frankfurt"),
-    MÜNCHEN("München");
+    MUNICH("München");
 
 
     public final String label;
