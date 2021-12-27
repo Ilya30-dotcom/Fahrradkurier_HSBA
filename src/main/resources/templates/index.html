@@ -41,7 +41,7 @@
                     <p class="card-text text-center text-muted">
                         Einfach und schnell registrieren und dann kann es los gehen.
                     </p>
-                    <a th:href="@{/register}" class="btn btn-primary mx-auto">Registrieren</a>
+                    <a th:if="${#httpServletRequest.remoteUser == null}" th:href="@{/register}" class="btn btn-primary mx-auto">Registrieren</a>
                 </div>
             </div>
         </div>

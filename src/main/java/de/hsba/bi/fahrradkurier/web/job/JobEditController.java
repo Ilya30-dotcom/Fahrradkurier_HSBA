@@ -25,12 +25,15 @@ public class JobEditController {
 
     @ModelAttribute("job")
     public JobEntity getJob(@PathVariable("jobId") Long id) {
-        JobEntity job = jobService.findJobById(id);
-        return job;
+        userService.checkIfUserAllowed(jobService.findJobById(id), false, true);
+
+        return jobService.findJobById(id);
     }
 
     @GetMapping()
     public String showEditableJob(@PathVariable("jobId") Long id, Model model) {
+        userService.checkIfUserAllowed(jobService.findJobById(id), false, true);
+
         User currentUser = userService.findCurrentUser();
         if (currentUser != null) {
             JobEntity job = jobService.findJobById(id);
@@ -41,6 +44,8 @@ public class JobEditController {
 
     @PostMapping()
     public String updateJob(@PathVariable("jobId") Long id, @ModelAttribute("jobForm") @Valid JobForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws Exception {
+        userService.checkIfUserAllowed(jobService.findJobById(id), false, true);
+
         if (bindingResult.hasErrors()) {
             return "job/jobEdit";
         }
