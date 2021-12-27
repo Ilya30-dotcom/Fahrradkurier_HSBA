@@ -2,7 +2,6 @@ package de.hsba.bi.fahrradkurier.web.job;
 
 import de.hsba.bi.fahrradkurier.job.JobEntity;
 import de.hsba.bi.fahrradkurier.job.JobService;
-import de.hsba.bi.fahrradkurier.user.User;
 import de.hsba.bi.fahrradkurier.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -33,12 +32,9 @@ public class JobEditController {
     @GetMapping()
     public String showEditableJob(@PathVariable("jobId") Long id, Model model) {
         userService.checkIfUserAllowed(jobService.findJobById(id), false, true);
+        JobEntity job = jobService.findJobById(id);
+        model.addAttribute("jobForm", formConverter.convertToJobForm(job));
 
-        User currentUser = userService.findCurrentUser();
-        if (currentUser != null) {
-            JobEntity job = jobService.findJobById(id);
-            model.addAttribute("jobForm", formConverter.convertToJobForm(job));
-        }
         return "job/jobEdit";
     }
 

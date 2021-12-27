@@ -34,12 +34,10 @@ public class JobCreateController {
     @GetMapping()
     public String index(Model model) {
         User currentUser = userService.findCurrentUser();
-        if (currentUser != null) {
-            CityEnum city = currentUser.getAddress().getCity();
-            model.addAttribute("jobForm", formConverter.enrichCity(city));
-            return "job/create";
-        }
-        return "redirect:/jobs";
+        CityEnum city = currentUser.getAddress().getCity();
+
+        model.addAttribute("jobForm", formConverter.enrichCity(city));
+        return "job/create";
     }
 
     @PostMapping()

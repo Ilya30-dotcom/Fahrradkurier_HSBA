@@ -23,10 +23,8 @@ public class JobIndexController {
     @GetMapping()
     public String index(Model model) {
         User currentUser = userService.findCurrentUser();
-        if (currentUser != null) {
-            model.addAttribute("userJobs", jobService.findAllJobsByUserId(currentUser.getId()));
-            model.addAttribute("newJobs", jobService.listAllJobsByStatusNew());
-        }
+        model.addAttribute("userJobs", jobService.findAllJobsByUserId(currentUser.getId()));
+        model.addAttribute("newJobs", jobService.listAllJobsByStatusNew());
         return "job/index";
     }
 
@@ -41,11 +39,7 @@ public class JobIndexController {
             userService.checkIfUserAllowed(jobEntity, true, true);
         }
 
-
-        User currentUser = userService.findCurrentUser();
-        if (currentUser != null) {
-            model.addAttribute("job", jobService.findJobById(id));
-        }
+        model.addAttribute("job", jobEntity);
         return "job/jobDetails";
     }
 
