@@ -19,4 +19,13 @@ public enum CityEnum{
     public String toString() {
         return label;
     }
+
+    public static CityEnum fromString(String text) {
+        for (CityEnum i : CityEnum.values()) {
+            if (i.label.equalsIgnoreCase(text)) {
+                return i;
+            }
+        }
+        return null;
+    }
 }
