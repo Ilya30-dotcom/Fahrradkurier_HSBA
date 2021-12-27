@@ -34,13 +34,13 @@ public class JobFormConverter {
 
     JobEntity updateJob(JobEntity job, JobForm form) {
         AddressEntity pickupAddress = AddressEntity.builder().
-                city(CityEnum.valueOf(form.getFromCity().toUpperCase()))
+                city(CityEnum.fromString(form.getFromCity()))
                 .zipCode(form.getFromZip())
                 .street(form.getFromStreet())
                 .streetNumber(form.getFromStreetNumber())
                 .build();
         AddressEntity deliveryAddress = AddressEntity.builder().
-                city(CityEnum.valueOf(form.getToCity().toUpperCase()))
+                city(CityEnum.fromString(form.getToCity()))
                 .zipCode(form.getToZip())
                 .street(form.getToStreet())
                 .streetNumber(form.getToStreetNumber())

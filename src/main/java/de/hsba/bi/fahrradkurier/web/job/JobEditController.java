@@ -2,7 +2,6 @@ package de.hsba.bi.fahrradkurier.web.job;
 
 import de.hsba.bi.fahrradkurier.job.JobEntity;
 import de.hsba.bi.fahrradkurier.job.JobService;
-import de.hsba.bi.fahrradkurier.user.User;
 import de.hsba.bi.fahrradkurier.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,22 +24,24 @@ public class JobEditController {
 
     @ModelAttribute("job")
     public JobEntity getJob(@PathVariable("jobId") Long id) {
-        JobEntity job = jobService.findJobById(id);
-        return job;
+        userService.checkIfUserAllowed(jobService.findJobById(id), false, true);
+
+        return jobService.findJobById(id);
     }
 
     @GetMapping()
     public String showEditableJob(@PathVariable("jobId") Long id, Model model) {
-        User currentUser = userService.findCurrentUser();
-        if (currentUser != null) {
-            JobEntity job = jobService.findJobById(id);
-            model.addAttribute("jobForm", formConverter.convertToJobForm(job));
-        }
+        userService.checkIfUserAllowed(jobService.findJobById(id), false, true);
+        JobEntity job = jobService.findJobById(id);
+        model.addAttribute("jobForm", formConverter.convertToJobForm(job));
+
         return "job/jobEdit";
     }
 
     @PostMapping()
     public String updateJob(@PathVariable("jobId") Long id, @ModelAttribute("jobForm") @Valid JobForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws Exception {
+        userService.checkIfUserAllowed(jobService.findJobById(id), false, true);
+
         if (bindingResult.hasErrors()) {
             return "job/jobEdit";
         }

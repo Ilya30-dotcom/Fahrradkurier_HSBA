@@ -1,9 +1,11 @@
 package de.hsba.bi.fahrradkurier.web.registration;
 
 import de.hsba.bi.fahrradkurier.common.CityEnum;
+import de.hsba.bi.fahrradkurier.common.validator.Username.ValidateUsername;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,12 +15,14 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@Validated
 public class RegistrationForm {
 
     @Pattern(regexp="^[^0-9]+$", message = "Darf nicht leer sein und darf keine Zahlen enthalten")
     private String firstName;
 
     @NotBlank(message = "Bitte ergänzen Sie das Feld")
+    @ValidateUsername()
     private String userName;
 
     @Pattern(regexp="^[^0-9]+$", message = "Darf nicht leer sein und darf keine Zahlen enthalten")
