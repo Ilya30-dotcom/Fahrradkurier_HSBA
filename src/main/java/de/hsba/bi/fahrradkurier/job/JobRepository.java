@@ -8,17 +8,17 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-interface JobRepository extends JpaRepository<JobEntity, Long> {
+public interface JobRepository extends JpaRepository<JobEntity, Long> {
 
-    @Query("FROM JobEntity j WHERE j.status = :status AND j.deliveryAddress.city = :city AND j.courier = null")
-    List<JobEntity> findAllByStatusAndCityIsResidentOrderByOrderTimeStampDesc(@Param(value = "status") JobStatusEnum status,
+    @Query("FROM JobEntity j WHERE j.status = :status AND j.deliveryAddress.city = :city")
+    List<JobEntity> findAllByStatusAndCityIsResidentOrderByOrderDateDesc(@Param(value = "status") JobStatusEnum status,
                                                                               @Param(value = "city") CityEnum city);
 
     List<JobEntity> findAllByCourierId(Long courierId);
 
     List<JobEntity> findAllByCustomerId(Long customerId);
 
-    List<JobEntity> findAllByCustomerIdOrCourierIdOrderByOrderTimeStampDesc(Long customerId, Long courierId);
+    List<JobEntity> findAllByCustomerIdOrCourierIdOrderByOrderDateDesc(Long customerId, Long courierId);
 
 
     @Modifying

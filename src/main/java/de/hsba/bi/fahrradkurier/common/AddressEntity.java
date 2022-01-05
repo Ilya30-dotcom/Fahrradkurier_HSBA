@@ -3,6 +3,7 @@ package de.hsba.bi.fahrradkurier.common;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -34,4 +35,18 @@ public class AddressEntity {
 
     @Basic(optional = false)
     private CityEnum city;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AddressEntity)) return false;
+        AddressEntity address = (AddressEntity) o;
+        return Objects.equals(getStreet(), address.getStreet()) && Objects.equals(getStreetNumber(), address.getStreetNumber()) && Objects.equals(getZipCode(), address.getZipCode()) && Objects.equals(getCity(), address.getCity());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStreet(), getStreetNumber(), getZipCode(), getCity());
+    }
+
 }
