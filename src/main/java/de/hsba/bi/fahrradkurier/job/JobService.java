@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class JobService {
      */
     public List<JobEntity> listAllJobsByStatusNew() {
         User currentUser = userService.findCurrentUser();
-        return jobRepository.findAllByStatusAndCityIsResidentOrderByOrderTimeStampDesc(JobStatusEnum.NEW, currentUser.getAddress().getCity());
+        return jobRepository.findAllByStatusAndCityIsResidentOrderByOrderDateDesc(JobStatusEnum.NEW, currentUser.getAddress().getCity());
     }
 
     /**
@@ -51,7 +52,7 @@ public class JobService {
      * @return List containing every JobEntity associated with the userId
      */
     public List<JobEntity> findAllJobsByUserId(Long userId) {
-        return jobRepository.findAllByCustomerIdOrCourierIdOrderByOrderTimeStampDesc(userId, userId);
+        return jobRepository.findAllByCustomerIdOrCourierIdOrderByOrderDateDesc(userId, userId);
     }
 
     /**
@@ -59,12 +60,12 @@ public class JobService {
      *
      * @param job New job that should be saved
      */
-    public void newJob(JobEntity job) {
-        job.setOrderTimeStamp(LocalDateTime.now());
+    public JobEntity newJob(JobEntity job) {
+        job.setOrderDate(LocalDate.now());
         //make sure no existing job can be changed
         job.setId(null);
         addressRepository.saveAll(Set.of(job.getDeliveryAddress(),job.getPickUpAddress()));
-        jobRepository.save(job);
+        return jobRepository.save(job);
     }
 
     /**
@@ -124,7 +125,7 @@ public class JobService {
 
         if(currentJob.isPresent()) {
             //make sure user can't change orderDate
-            updatedJob.setOrderTimeStamp(currentJob.get().getOrderTimeStamp());
+            updatedJob.setOrderDate(currentJob.get().getOrderDate());
             return jobRepository.save(updatedJob);
         } else {
             throw new Exception("Job not found");
