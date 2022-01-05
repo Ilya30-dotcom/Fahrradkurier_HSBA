@@ -4,9 +4,11 @@ import de.hsba.bi.fahrradkurier.common.AddressRepository;
 import de.hsba.bi.fahrradkurier.user.User;
 import de.hsba.bi.fahrradkurier.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +23,8 @@ import java.util.Set;
 @Transactional
 public class JobService {
 
+    @Autowired
+    private final Clock clock;
     private final JobRepository jobRepository;
     private final AddressRepository addressRepository;
     private final UserService userService;
@@ -61,7 +65,7 @@ public class JobService {
      * @param job New job that should be saved
      */
     public JobEntity newJob(JobEntity job) {
-        job.setOrderDate(LocalDate.now());
+        job.setOrderDate(LocalDate.now(clock));
         //make sure no existing job can be changed
         job.setId(null);
         addressRepository.saveAll(Set.of(job.getDeliveryAddress(),job.getPickUpAddress()));

@@ -2,7 +2,11 @@ package de.hsba.bi.fahrradkurier.job;
 
 
 import de.hsba.bi.fahrradkurier.AbstractIntegrationTest;
+import de.hsba.bi.fahrradkurier.common.AddressEntity;
+import de.hsba.bi.fahrradkurier.common.CityEnum;
+import de.hsba.bi.fahrradkurier.user.User;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,6 +19,12 @@ public class JobServiceTest extends AbstractIntegrationTest {
 
     @Test
     void testListAllJobsByStatusNew() {
+
+        User testUser = new User();
+        AddressEntity testAddress = new AddressEntity();
+        testAddress.setCity(CityEnum.HAMBURG);
+        testUser.setAddress(testAddress);
+        Mockito.doReturn(testUser).when(userService).findCurrentUser();
 
         List<JobEntity> resultList = jobService.listAllJobsByStatusNew();
 

@@ -27,7 +27,7 @@
             </thead>
             <tbody>
             <tr th:each="job : ${newJobs}" style="white-space: nowrap;">
-                <td th:text="${#temporals.format(job.getOrderDate(), 'dd.MM.yyyy HH:mm')} + ' Uhr'"></td>
+                <td th:text="${#temporals.format(job.getOrderDate(), 'dd.MM.yyyy')} "></td>
                 <td th:text="${job.getType().toString()}"></td>
                 <td th:inline="text" th:text="|${job.getPickUpAddress().getStreet()}, ${job.getPickUpAddress().getStreetNumber()}|"></td>
                 <td th:text="${job.getPickUpAddress().getCity()}"></td>
@@ -68,7 +68,7 @@
             </thead>
             <tbody>
             <tr th:each="job : ${userJobs}">
-                <td th:text="${#temporals.format(job.getOrderDate(), 'dd.MM.yyyy HH:mm')} + ' Uhr'"></td>
+                <td th:text="${#temporals.format(job.getOrderDate(), 'dd.MM.yyyy')}"></td>
                 <td th:text="${job.getType().toString()}"></td>
                 <td th:text="${job.getStatus().toString()}"></td>
                 <td>

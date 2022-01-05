@@ -20,7 +20,7 @@
             <a th:href="@{/jobs}" style="position: relative; right: 30px; bottom: 18px;" class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="Zurück zu meinen Aufträgen"><i class="fas fa-chevron-left"></i></a>
             <h1 class="text-muted" style="position: relative; right: 10px;">
                 Details zum Auftrag
-                <p th:text="'(Erstellt am ' + ${#temporals.format(job.getOrderDate(), 'dd.MM.yyyy HH:mm')} + ' Uhr)'" class="fs-6 fw-light"></p>
+                <p th:text="'(Erstellt am ' + ${#temporals.format(job.getOrderDate(), 'dd.MM.yyyy')}" class="fs-6 fw-light"></p>
             </h1>
         </div>
         <a th:if="${userRole == 'CUSTOMER' && job.getStatus().toString().equals('Neu')}" class="btn btn-primary btn-sm px-3"  th:href="@{/jobs/{id}/edit(id=${job.getId()})}">

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface JobRepository extends JpaRepository<JobEntity, Long> {
 
-    @Query("FROM JobEntity j WHERE j.status = :status AND j.deliveryAddress.city = :city AND j.courier = null")
+    @Query("FROM JobEntity j WHERE j.status = :status AND j.deliveryAddress.city = :city")
     List<JobEntity> findAllByStatusAndCityIsResidentOrderByOrderDateDesc(@Param(value = "status") JobStatusEnum status,
                                                                               @Param(value = "city") CityEnum city);
 
