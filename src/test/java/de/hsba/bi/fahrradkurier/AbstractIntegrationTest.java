@@ -177,7 +177,6 @@ public abstract class AbstractIntegrationTest {
 
 
 
-        //TODO: CHECK IF USER IS REALLY CURRIER
 
         jobService.newJob(
 
