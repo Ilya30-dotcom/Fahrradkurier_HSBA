@@ -53,6 +53,30 @@ public class TestData {
                 .zipCode("22022")
                 .streetNumber("2").build();
 
+        AddressEntity address5 = AddressEntity.builder()
+                .city(CityEnum.FRANKFURT)
+                .street("Neue Mainzer Straße")
+                .zipCode("60311")
+                .streetNumber("52").build();
+
+        AddressEntity address6 = AddressEntity.builder()
+                .city(CityEnum.FRANKFURT)
+                .street("Neue Mainzer Straße")
+                .zipCode("60311")
+                .streetNumber("59").build();
+
+        AddressEntity address7 = AddressEntity.builder()
+                .city(CityEnum.BERLIN)
+                .street("Unter den Linden")
+                .zipCode("10117")
+                .streetNumber("78").build();
+
+        AddressEntity address8 = AddressEntity.builder()
+                .city(CityEnum.BERLIN)
+                .street("Unter den Linden")
+                .zipCode("10117")
+                .streetNumber("79").build();
+
 
         User user1 = User.builder()
                 .userName("Ilja")
@@ -70,18 +94,85 @@ public class TestData {
                 .lastName("Test")
                 .birthday(LocalDate.now())
                 .password(passwordEncoder.encode(PASSWORD))
+                .role(UserRoleEnum.COURIER)
+                .address(address3)
+                .build();
+
+        User user3 = User.builder()
+                .userName("Max")
+                .firstName("Max")
+                .lastName("Test")
+                .birthday(LocalDate.now())
+                .password(passwordEncoder.encode(PASSWORD))
+                .role(UserRoleEnum.COURIER)
+                .address(address5)
+                .build();
+
+        User user4 = User.builder()
+                .userName("Abdullah")
+                .firstName("Abdullah")
+                .lastName("Test")
+                .birthday(LocalDate.now())
+                .password(passwordEncoder.encode(PASSWORD))
+                .role(UserRoleEnum.COURIER)
+                .address(address7)
+                .build();
+
+        User user5 = User.builder()
+                .userName("KundeHamburg")
+                .firstName("Kunde")
+                .lastName("Hamburg")
+                .birthday(LocalDate.now())
+                .password(passwordEncoder.encode(PASSWORD))
                 .role(UserRoleEnum.CUSTOMER)
                 .address(address2)
                 .build();
+
+        User user6 = User.builder()
+                .userName("KundeMuenchen")
+                .firstName("Kunde")
+                .lastName("Muenchen")
+                .birthday(LocalDate.now())
+                .password(passwordEncoder.encode(PASSWORD))
+                .role(UserRoleEnum.CUSTOMER)
+                .address(address4)
+                .build();
+
+        User user7 = User.builder()
+                .userName("KundeFrankfurt")
+                .firstName("Kunde")
+                .lastName("Frankfurt")
+                .birthday(LocalDate.now())
+                .password(passwordEncoder.encode(PASSWORD))
+                .role(UserRoleEnum.CUSTOMER)
+                .address(address6)
+                .build();
+
+        User user8 = User.builder()
+                .userName("KundeBerlin")
+                .firstName("Kunde")
+                .lastName("Berlin")
+                .birthday(LocalDate.now())
+                .password(passwordEncoder.encode(PASSWORD))
+                .role(UserRoleEnum.CUSTOMER)
+                .address(address8)
+                .build();
+
         userService.save(user1);
         userService.save(user2);
+        userService.save(user3);
+        userService.save(user4);
+        userService.save(user5);
+        userService.save(user6);
+        userService.save(user7);
+        userService.save(user8);
 
 
         //TODO: CHECK IF USER IS REALLY CURRIER
         jobService.newJob(
                 JobEntity.builder()
                         .courier(null)
-                        .customer(user2)
+                        .customer(user5)
                         .deliveryAddress(address1)
                         .pickUpAddress(address2)
                         .type(JobTypeEnum.LETTER)
@@ -91,9 +182,9 @@ public class TestData {
         jobService.newJob(
                 JobEntity.builder()
                         .courier(null)
-                        .customer(user2)
-                        .deliveryAddress(address2)
-                        .pickUpAddress(address1)
+                        .customer(user6)
+                        .deliveryAddress(address3)
+                        .pickUpAddress(address4)
                         .type(JobTypeEnum.PACKAGE)
                         .build()
         );
@@ -101,9 +192,19 @@ public class TestData {
         jobService.newJob(
                 JobEntity.builder()
                         .courier(null)
-                        .customer(user2)
-                        .deliveryAddress(address3)
-                        .pickUpAddress(address4)
+                        .customer(user7)
+                        .deliveryAddress(address5)
+                        .pickUpAddress(address6)
+                        .type(JobTypeEnum.PACKAGE)
+                        .build()
+        );
+
+        jobService.newJob(
+                JobEntity.builder()
+                        .courier(null)
+                        .customer(user8)
+                        .deliveryAddress(address7)
+                        .pickUpAddress(address8)
                         .type(JobTypeEnum.PACKAGE)
                         .build()
         );
