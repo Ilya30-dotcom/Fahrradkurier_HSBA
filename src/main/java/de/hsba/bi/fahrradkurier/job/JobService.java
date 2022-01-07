@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Clock;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -65,7 +64,7 @@ public class JobService {
      * @param job New job that should be saved
      */
     public JobEntity newJob(JobEntity job) {
-        job.setOrderDate(LocalDate.now(clock));
+        job.setOrderDate(LocalDateTime.now(clock));
         //make sure no existing job can be changed
         job.setId(null);
         addressRepository.saveAll(Set.of(job.getDeliveryAddress(),job.getPickUpAddress()));

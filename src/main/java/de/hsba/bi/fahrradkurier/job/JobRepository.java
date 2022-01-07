@@ -14,10 +14,6 @@ public interface JobRepository extends JpaRepository<JobEntity, Long> {
     List<JobEntity> findAllByStatusAndCityIsResidentOrderByOrderDateDesc(@Param(value = "status") JobStatusEnum status,
                                                                               @Param(value = "city") CityEnum city);
 
-    List<JobEntity> findAllByCourierId(Long courierId);
-
-    List<JobEntity> findAllByCustomerId(Long customerId);
-
     List<JobEntity> findAllByCustomerIdOrCourierIdOrderByOrderDateDesc(Long customerId, Long courierId);
 
 
