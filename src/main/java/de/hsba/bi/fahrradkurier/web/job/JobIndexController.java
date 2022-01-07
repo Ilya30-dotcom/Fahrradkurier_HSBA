@@ -31,7 +31,7 @@ public class JobIndexController {
     @GetMapping("/{jobId}")
     public String showJob(@PathVariable("jobId") Long id, Model model) {
         JobEntity jobEntity = jobService.findJobById(id);
-        if (jobEntity.getStatus().equals(JobStatusEnum.NEW)) {
+        if (jobEntity.getStatus().equals(JobStatusEnum.NEW) || jobEntity.getStatus().equals(JobStatusEnum.CANCELLED)) {
             if (userService.findCurrentUser().getRole().equals(UserRoleEnum.CUSTOMER)) {
                 userService.checkIfUserAllowed(jobEntity, false, true);
             }
