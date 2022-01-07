@@ -13,9 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 public class JobServiceTest extends AbstractIntegrationTest {
-
 
     @Test
     void testListAllJobsByStatusNew() {
@@ -34,7 +32,6 @@ public class JobServiceTest extends AbstractIntegrationTest {
             assertEquals(JobStatusEnum.NEW, job.getStatus(), "Job list includes a job that is not new");
         });
 
-
         JobEntity jobWithChangedStatus = resultList.get(0);
         jobWithChangedStatus.setStatus(JobStatusEnum.ACCEPTED);
         jobRepository.save(jobWithChangedStatus);
@@ -46,10 +43,7 @@ public class JobServiceTest extends AbstractIntegrationTest {
         resultList.forEach(job -> {
             assertEquals(JobStatusEnum.NEW, job.getStatus(), "Job list includes a job that is not new");
         });
-
     }
-
-
 
     @Test
     void testFindAllJobsByUserId() {
@@ -63,7 +57,6 @@ public class JobServiceTest extends AbstractIntegrationTest {
         });
     }
 
-
     @Test
     void testNewJob() {
         long jobListSize = jobRepository.findAll().size();
@@ -76,111 +69,58 @@ public class JobServiceTest extends AbstractIntegrationTest {
                 .build();
 
         JobEntity savedJob = jobService.newJob(testJob);
-
-
         assertEquals(jobListSize + 1L, jobRepository.findAll().size(), "Repository should now contain one job more");
-
-
-
         testJob.setStatus(JobStatusEnum.NEW);
-
         testJob.setOrderDate(TEST_DATE);
-
         testJob.setId(testJob.getId());
-
         assertTrue(compareJob(jobRepository.findById(savedJob.getId()).orElseThrow(), testJob),
-
                 "Job from repository does not match saved job");
-
     }
 
-
-
     @Test
-
     void testNextStatus() throws Exception {
-
         long testJobId = getCurrentJobId();
 
-
-
         assertEquals(jobRepository.findById(testJobId).orElseThrow().getStatus(), JobStatusEnum.NEW);
-
         jobService.nextStatus(testJobId);
-
-
 
         assertEquals(jobRepository.findById(testJobId).orElseThrow().getStatus(), JobStatusEnum.ACCEPTED);
-
         jobService.nextStatus(testJobId);
-
-
 
         assertEquals(jobRepository.findById(testJobId).orElseThrow().getStatus(), JobStatusEnum.ON_THE_WAY);
-
         jobService.nextStatus(testJobId);
-
-
 
         assertEquals(jobRepository.findById(testJobId).orElseThrow().getStatus(), JobStatusEnum.DELIVERED);
-
         jobService.nextStatus(testJobId);
 
-
-
         JobEntity testJob = jobRepository.findById(testJobId).orElseThrow();
-
         testJob.setStatus(JobStatusEnum.CANCELLED);
 
         jobRepository.save(testJob);
 
 
-
         jobService.nextStatus(testJobId);
 
-
-
         assertEquals(jobRepository.findById(testJobId).orElseThrow().getStatus(), JobStatusEnum.CANCELLED, "Status status should stay cancelled");
-
     }
 
-
-
     @Test
-
     void testCancel() {
-
         long testJobId = getCurrentJobId();
-
-
 
         assertEquals(jobRepository.findById(testJobId).orElseThrow().getStatus(), JobStatusEnum.NEW);
 
-
-
         jobService.cancel(testJobId);
-
         assertEquals(jobRepository.findById(testJobId).orElseThrow().getStatus(), JobStatusEnum.CANCELLED);
-
     }
 
-
-
     @Test
-
     void testChangeDetail() throws Exception {
-
         long testJobId = getCurrentJobId();
-
         JobEntity testJob = jobRepository.findById(testJobId).orElseThrow();
 
-
-
         testJob.setType(JobTypeEnum.PACKAGE);
-
         testJob.setOrderDate(LocalDate.MAX);
-
-
 
         JobEntity changedTestJob = jobService.changeDetail(testJob);
         assertTrue(compareJob(testJob, changedTestJob));
@@ -190,35 +130,20 @@ public class JobServiceTest extends AbstractIntegrationTest {
 
         assertTrue(compareJob(testJob, changedTestJob));
         assertTrue(compareJob(testJob, jobRepository.findById(testJobId).orElseThrow()));
-
     }
-
 
 
     private long getCurrentJobId() {
-
         return jobRepository.findAll().stream().findFirst().orElseThrow().getId();
-
     }
-
-
 
     private boolean compareJob(JobEntity job1, JobEntity job2) {
-
         return job1.getId().equals(job2.getId()) &&
-
                 job1.getStatus().equals(job2.getStatus()) &&
-
                 job1.getDeliveryAddress().equals(job2.getDeliveryAddress()) &&
-
                 job1.getPickUpAddress().equals(job2.getPickUpAddress()) &&
-
                 job1.getOrderDate().equals(job2.getOrderDate()) &&
-
                 job1.getType().equals(job2.getType()) &&
-
                 job1.getCustomer().getId().equals(job2.getCustomer().getId());
-
     }
-
 }

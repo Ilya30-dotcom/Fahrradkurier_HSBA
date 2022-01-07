@@ -43,10 +43,4 @@ public class AddressEntity {
         AddressEntity address = (AddressEntity) o;
         return Objects.equals(getStreet(), address.getStreet()) && Objects.equals(getStreetNumber(), address.getStreetNumber()) && Objects.equals(getZipCode(), address.getZipCode()) && Objects.equals(getCity(), address.getCity()) && Objects.equals(getId(), address.getId());
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getStreet(), getStreetNumber(), getZipCode(), getCity());
-    }
-
 }

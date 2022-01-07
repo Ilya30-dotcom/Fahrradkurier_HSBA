@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * Class that takes care of everything related to the User
+ */
 @RequiredArgsConstructor
 @Service
 @Transactional
@@ -37,6 +40,13 @@ public class UserService {
         return userRepository.findByUserName(User.getCurrentUsername());
     }
 
+
+    /**
+     * Checks if a username is already in use
+     *
+     * @param userName Username that should be checked
+     * @return boolean whether the username is unique
+     */
     public boolean isUserNameUnique(String userName) {
         return userRepository.findByUserName(userName) == null;
     }
