@@ -77,7 +77,6 @@ public class TestData {
         userService.save(user2);
 
 
-        //TODO: CHECK IF USER IS REALLY CURRIER
         jobService.newJob(
                 JobEntity.builder()
                         .courier(null)

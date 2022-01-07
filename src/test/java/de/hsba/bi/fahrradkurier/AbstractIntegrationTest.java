@@ -176,9 +176,6 @@ public abstract class AbstractIntegrationTest {
         userId = user1.getId();
 
 
-
-        //TODO: CHECK IF USER IS REALLY CURRIER
-
         jobService.newJob(
 
                 JobEntity.builder()

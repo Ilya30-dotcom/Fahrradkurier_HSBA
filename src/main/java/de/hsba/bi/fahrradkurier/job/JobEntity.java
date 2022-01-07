@@ -6,7 +6,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -49,9 +48,6 @@ public class JobEntity {
     @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     private AddressEntity deliveryAddress;
 
-    //TODO: CHECK IF MERGE IS OK
     @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     private AddressEntity pickUpAddress;
 }
-
-//TODO: FETCH LAZY

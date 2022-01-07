@@ -41,7 +41,7 @@ public class AddressEntity {
         if (this == o) return true;
         if (!(o instanceof AddressEntity)) return false;
         AddressEntity address = (AddressEntity) o;
-        return Objects.equals(getStreet(), address.getStreet()) && Objects.equals(getStreetNumber(), address.getStreetNumber()) && Objects.equals(getZipCode(), address.getZipCode()) && Objects.equals(getCity(), address.getCity());
+        return Objects.equals(getStreet(), address.getStreet()) && Objects.equals(getStreetNumber(), address.getStreetNumber()) && Objects.equals(getZipCode(), address.getZipCode()) && Objects.equals(getCity(), address.getCity()) && Objects.equals(getId(), address.getId());
     }
 
     @Override
