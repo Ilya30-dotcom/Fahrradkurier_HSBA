@@ -29,6 +29,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.Clock;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 
@@ -105,7 +106,7 @@ public abstract class AbstractIntegrationTest {
 
 
 
-    public final LocalDate TEST_DATE = LocalDate.of(2000, 1, 1);
+    public final LocalDateTime TEST_DATE = LocalDateTime.of(2000, 1, 1,1,1);
 
     public Long userId = null;
 
@@ -119,7 +120,7 @@ public abstract class AbstractIntegrationTest {
 
         addressRepository.deleteAll();
 
-        Clock fixedClock = Clock.fixed(TEST_DATE.atStartOfDay(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
+        Clock fixedClock = Clock.fixed(TEST_DATE.atZone(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
 
 
 

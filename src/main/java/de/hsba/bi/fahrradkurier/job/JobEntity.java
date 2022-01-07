@@ -5,7 +5,7 @@ import de.hsba.bi.fahrradkurier.user.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class JobEntity {
 
     @Builder
-    public JobEntity(User courier, User customer, JobTypeEnum type, LocalDate orderDate, AddressEntity deliveryAddress, AddressEntity pickUpAddress) {
+    public JobEntity(User courier, User customer, JobTypeEnum type, LocalDateTime orderDate, AddressEntity deliveryAddress, AddressEntity pickUpAddress) {
         this.courier = courier;
         this.status = JobStatusEnum.NEW;
         this.customer = customer;
@@ -43,7 +43,7 @@ public class JobEntity {
     private JobTypeEnum type;
 
     @Basic(optional = false)
-    private LocalDate orderDate;
+    private LocalDateTime orderDate;
 
     @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     private AddressEntity deliveryAddress;

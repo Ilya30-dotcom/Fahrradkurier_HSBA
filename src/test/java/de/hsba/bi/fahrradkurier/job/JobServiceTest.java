@@ -8,7 +8,7 @@ import de.hsba.bi.fahrradkurier.user.User;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -120,12 +120,12 @@ public class JobServiceTest extends AbstractIntegrationTest {
         JobEntity testJob = jobRepository.findById(testJobId).orElseThrow();
 
         testJob.setType(JobTypeEnum.PACKAGE);
-        testJob.setOrderDate(LocalDate.MAX);
+        testJob.setOrderDate(LocalDateTime.MAX);
 
         JobEntity changedTestJob = jobService.changeDetail(testJob);
         assertTrue(compareJob(testJob, changedTestJob));
         testJob.setType(JobTypeEnum.LETTER);
-        testJob.setOrderDate(LocalDate.MIN);
+        testJob.setOrderDate(LocalDateTime.MIN);
         changedTestJob = jobService.changeDetail(testJob);
 
         assertTrue(compareJob(testJob, changedTestJob));
