@@ -84,7 +84,6 @@
                                         <option selected th:value="null">Bitte auswählen</option>
                                         <option th:each="city : ${T(de.hsba.bi.fahrradkurier.common.CityEnum).values()}" th:text="${city}" th:value="${city.name()}"></option>
                                     </select>
-                                    <label class="text-danger small" th:errors="*{city}"/>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary mb-3">Registrieren</button>

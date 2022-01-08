@@ -3,6 +3,7 @@ package de.hsba.bi.fahrradkurier.web.job;
 import de.hsba.bi.fahrradkurier.common.AddressEntity;
 import de.hsba.bi.fahrradkurier.common.CityEnum;
 import de.hsba.bi.fahrradkurier.job.JobEntity;
+import de.hsba.bi.fahrradkurier.job.JobStatusEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,7 +28,6 @@ public class JobFormConverter {
         form.setToStreetNumber(job.getDeliveryAddress().getStreetNumber());
         form.setToZip(job.getDeliveryAddress().getZipCode());
         form.setToCity(job.getDeliveryAddress().getCity().toString());
-
         form.setType(job.getType());
         return form;
     }
