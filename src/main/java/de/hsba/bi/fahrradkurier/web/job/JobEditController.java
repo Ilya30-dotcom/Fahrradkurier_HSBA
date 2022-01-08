@@ -39,7 +39,7 @@ public class JobEditController {
     }
 
     @PostMapping()
-    public String updateJob(@PathVariable("jobId") Long id, @ModelAttribute("jobForm") @Valid JobForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws Exception {
+    public String updateJob(@PathVariable("jobId") Long id, @ModelAttribute("jobForm") @Valid JobForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
         userService.checkIfUserAllowed(jobService.findJobById(id), false, true);
 
         if (bindingResult.hasErrors()) {
